@@ -7,7 +7,32 @@ import "./Login.scss";
 class Login extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      username: "",
+      password: "",
+      isShowPassword: false,
+    };
   }
+
+  handleOnChangeUserName = (event) => {
+    return this.setState({
+      username: event.target.value,
+    });
+  };
+
+  handleOnChangePassword = (event) => {
+    return this.setState({
+      password: event.target.value,
+    });
+  };
+
+  handleLogin = () => {};
+
+  handleShowHidePassword = () => {
+    this.setState({
+      isShowPassword: !this.state.isShowPassword,
+    });
+  };
 
   render() {
     return (
@@ -21,18 +46,33 @@ class Login extends Component {
                 type="text"
                 className="form-control"
                 placeholder="Enter your username"
+                value={this.state.username}
+                onChange={(event) => this.handleOnChangeUserName(event)}
               />
             </div>
             <div className="col-12 form-group login-input">
               <label>Password:</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Enter your password"
-              />
+              <div className="custom-input-password">
+                <input
+                  type={this.state.isShowPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  className="form-control"
+                  value={this.state.password}
+                  onChange={(event) => this.handleOnChangePassword(event)}
+                />
+                <span onClick={() => this.handleShowHidePassword()}>
+                  <i
+                    class={
+                      !this.state.isShowPassword
+                        ? "fas fa-eye-slash"
+                        : "fas fa-eye"
+                    }
+                  ></i>
+                </span>
+              </div>
             </div>
             <div className="col-12 btn-login">
-              <button>Login</button>
+              <button onClick={() => this.handleLogin()}>Login</button>
             </div>
             <div className="col-12">
               <span className="forgot-password">Forgot your password?</span>
