@@ -3,20 +3,22 @@ import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import * as actions from "../../store/actions";
 import "./Login.scss";
+import { userService } from "../../services/";
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
+      email: "",
       password: "",
       isShowPassword: false,
+      errMessage: "",
     };
   }
 
-  handleOnChangeUserName = (event) => {
+  handleOnChangeUserEmail = (event) => {
     return this.setState({
-      username: event.target.value,
+      email: event.target.value,
     });
   };
 
@@ -26,7 +28,24 @@ class Login extends Component {
     });
   };
 
-  handleLogin = () => {};
+  handleLogin = async () => {
+    this.setState({
+      errMessage: "",
+    });
+    try {
+      const user = await userService.handleLogin(
+        this.state.email,
+        this.state.password
+      );
+      this.props.userLoginSuccess(user.token);
+    } catch (e) {
+      if (e.data) {
+        this.setState({
+          errMessage: e.data.status,
+        });
+      }
+    }
+  };
 
   handleShowHidePassword = () => {
     this.setState({
@@ -41,13 +60,13 @@ class Login extends Component {
           <div className="login-content row">
             <div className="col-12 text-login">Login</div>
             <div className="col-12 form-group login-input">
-              <label>Username:</label>
+              <label>Email:</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Enter your username"
-                value={this.state.username}
-                onChange={(event) => this.handleOnChangeUserName(event)}
+                placeholder="Enter your email"
+                value={this.state.email}
+                onChange={(event) => this.handleOnChangeUserEmail(event)}
               />
             </div>
             <div className="col-12 form-group login-input">
@@ -62,7 +81,7 @@ class Login extends Component {
                 />
                 <span onClick={() => this.handleShowHidePassword()}>
                   <i
-                    class={
+                    className={
                       !this.state.isShowPassword
                         ? "fas fa-eye-slash"
                         : "fas fa-eye"
@@ -70,6 +89,9 @@ class Login extends Component {
                   ></i>
                 </span>
               </div>
+            </div>
+            <div className="col-12" style={{ color: "red" }}>
+              {this.state.errMessage}
             </div>
             <div className="col-12 btn-login">
               <button onClick={() => this.handleLogin()}>Login</button>
@@ -81,8 +103,8 @@ class Login extends Component {
               <span className="text-order-login">Or login with:</span>
             </div>
             <div className="col-12 social-login">
-              <i class="fab fa-google-plus-g google"></i>
-              <i class="fab fa-facebook-f facebook"></i>
+              <i className="fab fa-google-plus-g google"></i>
+              <i className="fab fa-facebook-f facebook"></i>
             </div>
           </div>
         </div>
@@ -100,9 +122,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     navigate: (path) => dispatch(push(path)),
-    adminLoginSuccess: (adminInfo) =>
-      dispatch(actions.adminLoginSuccess(adminInfo)),
-    adminLoginFail: () => dispatch(actions.adminLoginFail()),
+    userLoginSuccess: (userInfo) =>
+      dispatch(actions.userLoginSuccess(userInfo)),
   };
 };
 
