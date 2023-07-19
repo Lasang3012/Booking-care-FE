@@ -1,10 +1,19 @@
 import React, { Component } from "react";
 // import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
-class UserManage extends Component {
-  state = {};
+import { userService } from "../../services/";
 
-  componentDidMount() {}
+class UserManage extends Component {
+  state = {
+    listUser: [],
+  };
+
+  async componentDidMount() {
+    const listUser = await userService.getListUser();
+    this.setState({
+      listUser: listUser.data,
+    });
+  }
 
   render() {
     return <div className="text-center">Manage users</div>;

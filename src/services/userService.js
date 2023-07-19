@@ -7,4 +7,8 @@ const handleLogin = (email, password) => {
   });
 };
 
-export default { handleLogin: handleLogin };
+const getListUser = () => {
+  return axios.get("/users");
+};
+
+export default { handleLogin: handleLogin, getListUser: getListUser };
