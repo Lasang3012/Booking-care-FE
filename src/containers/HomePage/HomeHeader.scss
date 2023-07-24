@@ -1,6 +1,5 @@
 .home-header-container {
   height: 60px;
-  border: 1px solid red;
   width: 100%;
 
   .home-header-content {
@@ -11,7 +10,6 @@
 
     .left-content {
       width: 25%;
-      border: 1px solid green;
       display: flex;
       align-items: center;
 
@@ -57,6 +55,434 @@
       .support {
       }
       .flag {
+      }
+    }
+  }
+}
+
+.home-header-banner {
+  background: url("../../assets/header-background.png") center center no-repeat;
+  height: 485px;
+  width: 100%;
+  background-size: cover;
+  background-color: rgba(254, 240, 185, 255);
+  padding: 15px 0;
+  display: flex;
+  flex-direction: column;
+
+  .content-up {
+    height: 50%;
+    .title1 {
+      text-align: center;
+      font-size: 32px;
+      text-shadow: 3px 3px 3px #333;
+      color: rgb(158, 196, 71);
+      font-weight: bold;
+      margin-bottom: 10px;
+      background-color: rgba(254, 240, 185, 255);
+    }
+    .title2 {
+      text-align: center;
+      font-size: 30px;
+      text-shadow: 2px 2px 2px #333;
+      color: rgb(204, 247, 32);
+      font-weight: bold;
+      margin-bottom: 50px;
+    }
+    .search {
+      background: #f7d800;
+      color: #fff;
+      outline: none;
+      border-radius: 25px;
+      border: 1px solid transparent;
+      align-items: center;
+      width: fit-content;
+      display: flex;
+      margin: 0 auto;
+      width: 400px;
+
+      i {
+        background: #f7d800;
+        color: #fff;
+        outline: none;
+        border-radius: 25px;
+        border: 1px solid transparent;
+        line-height: 50px;
+        height: 50px;
+        padding-left: 12px;
+        padding-right: 25px;
+        position: relative;
+        font-size: 30px;
+      }
+      input {
+        background: transparent;
+        outline: none;
+        border: none;
+        width: 100%;
+        font-size: 30px;
+
+        &::placeholder {
+          /* Chrome, Firefox, Opera, Safari 10.1+ */
+          color: white;
+          opacity: 1; /* Firefox */
+        }
+      }
+    }
+  }
+  .content-down {
+    height: 50%;
+    display: flex;
+    justify-content: center;
+
+    .options {
+      display: flex;
+      border-bottom: 0;
+      gap: 15px;
+      align-self: flex-end;
+
+      .option1 {
+        cursor: pointer;
+        .icon {
+          background: #fff;
+          border-radius: 50%;
+          -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+          -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+          width: fit-content;
+          height: fit-content;
+          margin: 2px auto;
+          background-size: 32px;
+          background-repeat: no-repeat;
+          background-position: center;
+          padding: 10px;
+
+          .image {
+            height: 50px;
+            width: 50px;
+            background: url("../../assets/header-options/option_1.png") center
+              center no-repeat;
+            background-size: cover;
+          }
+        }
+        .text {
+          text-align: center;
+          padding: 5px 5px;
+          color: #333;
+          display: inline-block;
+          position: relative;
+          font-size: 14px;
+          font-weight: bold;
+          height: 55px;
+          width: 100px;
+          &:hover {
+            color: #2e7eed;
+          }
+        }
+      }
+      .option2 {
+        cursor: pointer;
+        .icon {
+          background: #fff;
+          border-radius: 50%;
+          -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+          -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+          width: fit-content;
+          height: fit-content;
+          margin: 2px auto;
+          background-size: 32px;
+          background-repeat: no-repeat;
+          background-position: center;
+          padding: 10px;
+          .image {
+            background: url("../../assets/header-options/option_2.png") center
+              center no-repeat;
+            height: 50px;
+            width: 50px;
+            background-size: cover;
+          }
+        }
+        .text {
+          text-align: center;
+          padding: 5px 5px;
+          color: #333;
+          display: inline-block;
+          position: relative;
+          font-size: 14px;
+          font-weight: bold;
+          height: 55px;
+          width: 100px;
+
+          &:hover {
+            color: #2e7eed;
+          }
+        }
+      }
+      .option3 {
+        cursor: pointer;
+        .icon {
+          background: #fff;
+          border-radius: 50%;
+          -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+          -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+          width: fit-content;
+          height: fit-content;
+          margin: 2px auto;
+          background-size: 32px;
+          background-repeat: no-repeat;
+          background-position: center;
+          padding: 10px;
+          .image {
+            background: url("../../assets/header-options/option_3.png") center
+              center no-repeat;
+            height: 50px;
+            width: 50px;
+            background-size: cover;
+          }
+        }
+        .text {
+          text-align: center;
+          padding: 5px 5px;
+          color: #333;
+          display: inline-block;
+          position: relative;
+          font-size: 14px;
+          font-weight: bold;
+          height: 55px;
+          width: 100px;
+          &:hover {
+            color: #2e7eed;
+          }
+        }
+      }
+      .option4 {
+        cursor: pointer;
+        .icon {
+          background: #fff;
+          border-radius: 50%;
+          -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+          -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+          width: fit-content;
+          height: fit-content;
+          margin: 2px auto;
+          background-size: 32px;
+          background-repeat: no-repeat;
+          background-position: center;
+          padding: 10px;
+          .image {
+            background: url("../../assets/header-options/option_4.png") center
+              center no-repeat;
+            height: 50px;
+            width: 50px;
+            background-size: cover;
+          }
+        }
+        .text {
+          text-align: center;
+          padding: 5px 5px;
+          color: #333;
+          display: inline-block;
+          position: relative;
+          font-size: 14px;
+          font-weight: bold;
+          height: 55px;
+          width: 100px;
+          &:hover {
+            color: #2e7eed;
+          }
+        }
+      }
+      .option5 {
+        cursor: pointer;
+        .icon {
+          background: #fff;
+          border-radius: 50%;
+          -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+          -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+          width: fit-content;
+          height: fit-content;
+          margin: 2px auto;
+          background-size: 32px;
+          background-repeat: no-repeat;
+          background-position: center;
+          padding: 10px;
+          .image {
+            background: url("../../assets/header-options/option_5.png") center
+              center no-repeat;
+            height: 50px;
+            width: 50px;
+            background-size: cover;
+          }
+        }
+        .text {
+          text-align: center;
+          padding: 5px 5px;
+          color: #333;
+          display: inline-block;
+          position: relative;
+          font-size: 14px;
+          font-weight: bold;
+          height: 55px;
+          width: 100px;
+          &:hover {
+            color: #2e7eed;
+          }
+        }
+      }
+      .option6 {
+        cursor: pointer;
+        .icon {
+          background: #fff;
+          border-radius: 50%;
+          -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+          -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+          width: fit-content;
+          height: fit-content;
+          margin: 2px auto;
+          background-size: 32px;
+          background-repeat: no-repeat;
+          background-position: center;
+          padding: 10px;
+          .image {
+            background: url("../../assets/header-options/option_6.png") center
+              center no-repeat;
+            height: 50px;
+            width: 50px;
+            background-size: cover;
+          }
+        }
+        .text {
+          text-align: center;
+          padding: 5px 5px;
+          color: #333;
+          display: inline-block;
+          position: relative;
+          font-size: 14px;
+          font-weight: bold;
+          height: 55px;
+          width: 100px;
+          &:hover {
+            color: #2e7eed;
+          }
+        }
+      }
+      .option7 {
+        cursor: pointer;
+        .icon {
+          background: #fff;
+          border-radius: 50%;
+          -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+          -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+          width: fit-content;
+          height: fit-content;
+          margin: 2px auto;
+          background-size: 32px;
+          background-repeat: no-repeat;
+          background-position: center;
+          padding: 10px;
+          .image {
+            background: url("../../assets/header-options/option_7.png") center
+              center no-repeat;
+            height: 50px;
+            width: 50px;
+            background-size: cover;
+          }
+        }
+        .text {
+          text-align: center;
+          padding: 5px 5px;
+          color: #333;
+          display: inline-block;
+          position: relative;
+          font-size: 14px;
+          font-weight: bold;
+          height: 55px;
+          width: 100px;
+          &:hover {
+            color: #2e7eed;
+          }
+        }
+      }
+      .option8 {
+        cursor: pointer;
+        .icon {
+          background: #fff;
+          border-radius: 50%;
+          -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+          -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+          width: fit-content;
+          height: fit-content;
+          margin: 2px auto;
+          background-size: 32px;
+          background-repeat: no-repeat;
+          background-position: center;
+          padding: 10px;
+          .image {
+            background: url("../../assets/header-options/option_8.png") center
+              center no-repeat;
+            height: 50px;
+            width: 50px;
+            background-size: cover;
+          }
+        }
+        .text {
+          text-align: center;
+          padding: 5px 5px;
+          color: #333;
+          display: inline-block;
+          position: relative;
+          font-size: 14px;
+          font-weight: bold;
+          height: 55px;
+          width: 100px;
+          &:hover {
+            color: #2e7eed;
+          }
+        }
+      }
+      .option9 {
+        cursor: pointer;
+        .icon {
+          background: #fff;
+          border-radius: 50%;
+          -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+          -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+          width: fit-content;
+          height: fit-content;
+          margin: 2px auto;
+          background-size: 32px;
+          background-repeat: no-repeat;
+          background-position: center;
+          padding: 10px;
+          .image {
+            background: url("../../assets/header-options/option_9.png") center
+              center no-repeat;
+            height: 50px;
+            width: 50px;
+            background-size: cover;
+          }
+        }
+        .text {
+          text-align: center;
+          padding: 5px 5px;
+          color: #333;
+          display: inline-block;
+          position: relative;
+          font-size: 14px;
+          font-weight: bold;
+          height: 55px;
+          width: 100px;
+          &:hover {
+            color: #2e7eed;
+          }
+        }
       }
     }
   }
