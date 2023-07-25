@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./HomeHeader.scss";
+import { FormattedMessage } from "react-intl";
 
 class HomeHeader extends Component {
   render() {
+    console.log("check props", this.props);
     return (
       <>
         <div className="home-header-container">
@@ -15,7 +17,9 @@ class HomeHeader extends Component {
             <div className="center-content">
               <div className="child-content">
                 <div>
-                  <b>Chuyên khoa</b>
+                  <b>
+                    <FormattedMessage id="home-header.speciality" /> 
+                  </b>
                 </div>
                 <div className="sub-title">Tìm bác sĩ theo chuyên khoa</div>
               </div>
@@ -41,9 +45,10 @@ class HomeHeader extends Component {
 
             <div className="right-content">
               <div className="support">
-                <i className="far fa-question-circle"></i> Hỗ trợ
+                <i class="fas fa-question support-icon"></i> Hỗ trợ
               </div>
-              <div className="flag">VN</div>
+              <div className="languageV-vi">VN</div>
+              <div className="language-en">EN</div>
             </div>
           </div>
         </div>
@@ -52,7 +57,7 @@ class HomeHeader extends Component {
             <div className="title1">NỀN TẢNG Y TẾ</div>
             <div className="title2">CHĂM SÓC SỨC KHỎE TOÀN DIỆN</div>
             <div className="search">
-              <i class="fas fa-search"></i>
+              <i className="fas fa-search"></i>
               <input type="text" placeholder="search" />
             </div>
           </div>
