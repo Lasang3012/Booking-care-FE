@@ -1,0 +1,29 @@
+.App {
+  font-family: sans-serif;
+}
+
+.section-specialty {
+  .specialty-content {
+    position: relative; // Thêm position relative cho khối Slider
+    .slider-arrow {
+      position: absolute; // Thêm position absolute cho các nút "Previous" và "Next"
+      z-index: 1;
+      height: 100%;
+      width: 50px; // Điều chỉnh kích thước nút theo ý muốn
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      background: gray;
+      color: black;
+    }
+
+    .prev {
+      left: 0 !important; // Đặt vị trí nút "Previous" bên trái
+    }
+
+    .next {
+      right: 0 !important; // Đặt vị trí nút "Next" bên phải
+    }
+  }
+}
