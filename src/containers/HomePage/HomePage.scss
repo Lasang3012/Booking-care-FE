@@ -1,0 +1,146 @@
+.section-share {
+  display: flex;
+  flex-direction: column;
+
+  .section-content {
+    height: auto;
+    overflow: hidden;
+
+    .slick-slider {
+      padding: 0 20px;
+      margin: 0 30px;
+
+      .slick-list {
+        .slider-item {
+          .image {
+            height: 156px;
+            background-size: cover;
+            cursor: pointer;
+          }
+          .image-specialty {
+            background: url("../../assets/san_phu_khoa.jpg") center center
+              no-repeat;
+          }
+
+          .image-medical-facility {
+            background: url("../../assets/benh_vien_lao_khoa.jpeg") center
+              center no-repeat;
+          }
+
+          .outer-bg {
+            .image-outstanding-doctor {
+              width: 120px;
+              height: 120px;
+              margin: 0 auto;
+              background: url("../../assets/doctor_image.jpg") center center
+                no-repeat;
+              background-size: cover;
+              display: flex !important;
+              flex-direction: column !important;
+              border-radius: 50%;
+            }
+          }
+
+          .name {
+            margin-top: 10px;
+            text-align: center;
+            span {
+              &:hover {
+                font-weight: bold;
+                color: blue;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+
+        .slider-item-outstanding-doctor {
+          border: 1px solid #eee;
+          text-align: center;
+          padding: 10px 5px;
+        }
+        .slick-slide {
+          padding: 0 5px;
+        }
+      }
+    }
+
+    .img-customize {
+      padding-left: 5px;
+      padding-right: 5px;
+      border: 1px solid #eee;
+      height: 250px;
+    }
+
+    .slick-prev {
+      height: 45px !important;
+      width: 40px !important;
+      z-index: 10;
+      margin-left: 20px !important;
+      background: #45c3d2 !important;
+      opacity: 0.7;
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .slick-next {
+      height: 45px !important;
+      width: 40px !important;
+      z-index: 10;
+      margin-right: 20px !important;
+      background: #45c3d2 !important;
+      opacity: 0.7;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .section-header {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 65px;
+    margin-right: 55px;
+
+    span {
+      font-size: 24px;
+      font-weight: bold;
+      padding: 15px 0px 5px 0px;
+    }
+
+    button {
+      background: #e4e0e0;
+      text-transform: uppercase;
+      display: inline-block;
+      padding: 8px 15px;
+      color: black;
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        background-color: yellow;
+        font-weight: bold;
+        color: white;
+      }
+    }
+  }
+}
+
+.section-specialty {
+  background-color: white;
+  padding-bottom: 10px;
+}
+
+.section-medical-facility {
+  background-color: #efefef;
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+
+.section-outstanding-doctor {
+  background-color: white;
+  padding-bottom: 10px;
+}

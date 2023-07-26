@@ -6,51 +6,50 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-class Specialty extends Component {
+class HandBook extends Component {
   render() {
-
     return (
-      <div className="section-share section-specialty">
+      <div className="section-share section-medical-facility">
         <div className="section-header">
-          <span>Chuyên khoa phổ biến</span>
+          <span>Cẩm nang</span>
           <button>Xem thêm</button>
         </div>
         <div className="section-content">
           <Slider {...this.props.settings}>
             <div className="slider-item">
-              <div className="image image-specialty"></div>
+              <div className="image image-medical-facility"></div>
               <div className="name">
-                <span>Khám thai</span>
+                <span>Bệnh viện lão khoa trung ương</span>
               </div>
             </div>
             <div className="slider-item">
-              <div className="image image-specialty"></div>
+              <div className="image image-medical-facility"></div>
               <div className="name">
-                <span>Khám thai</span>
+                <span>Bệnh viện lão khoa trung ương</span>
               </div>
             </div>
             <div className="slider-item">
-              <div className="image image-specialty"></div>
+              <div className="image image-medical-facility"></div>
               <div className="name">
-                <span>Khám thai</span>
+                <span>Bệnh viện lão khoa trung ương</span>
               </div>
             </div>
             <div className="slider-item">
-              <div className="image image-specialty"></div>
+              <div className="image image-medical-facility"></div>
               <div className="name">
-                <span>Khám thai</span>
+                <span>Bệnh viện lão khoa trung ương</span>
               </div>
             </div>
             <div className="slider-item">
-              <div className="image image-specialty"></div>
+              <div className="image image-medical-facility"></div>
               <div className="name">
-                <span>Khám thai</span>
+                <span>Bệnh viện lão khoa trung ương</span>
               </div>
             </div>
             <div className="slider-item">
-              <div className="image image-specialty"></div>
+              <div className="image image-medical-facility"></div>
               <div className="name">
-                <span>Khám thai</span>
+                <span>Bệnh viện lão khoa trung ương</span>
               </div>
             </div>
           </Slider>
@@ -70,4 +69,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
+export default connect(mapStateToProps, mapDispatchToProps)(HandBook);
