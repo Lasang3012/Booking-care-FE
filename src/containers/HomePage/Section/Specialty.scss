@@ -1,29 +1,91 @@
-.App {
-  font-family: sans-serif;
-}
-
 .section-specialty {
+  display: flex;
+  flex-direction: column;
+
   .specialty-content {
-    position: relative; // Thêm position relative cho khối Slider
-    .slider-arrow {
-      position: absolute; // Thêm position absolute cho các nút "Previous" và "Next"
-      z-index: 1;
-      height: 100%;
-      width: 50px; // Điều chỉnh kích thước nút theo ý muốn
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      background: gray;
+    height: auto;
+    overflow: hidden;
+
+    .slick-slider {
+      padding: 0 20px;
+      margin: 0 30px;
+
+      .slick-list {
+        background: #fff;
+
+        .slider-item {
+          .image {
+            background: url("../../../assets/san_phu_khoa.jpg") center center
+              no-repeat;
+            height: 156px;
+            background-size: cover;
+          }
+        }
+        .slick-slide {
+          padding: 0 5px;
+        }
+      }
+    }
+
+    .img-customize {
+      padding-left: 5px;
+      padding-right: 5px;
+      border: 1px solid #eee;
+      height: 250px;
+    }
+
+    .slick-prev {
+      height: 45px !important;
+      width: 40px !important;
+      z-index: 10;
+      margin-left: 20px !important;
+      background: #45c3d2 !important;
+      opacity: 0.7;
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .slick-next {
+      height: 45px !important;
+      width: 40px !important;
+      z-index: 10;
+      margin-right: 20px !important;
+      background: #45c3d2 !important;
+      opacity: 0.7;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .specialty-header {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 65px;
+    margin-right: 55px;
+
+    span {
+      font-size: 24px;
+      font-weight: bold;
+      padding: 15px 0px 5px 0px;
+    }
+
+    button {
+      background: #ebebeb;
+      text-transform: uppercase;
+      display: inline-block;
+      padding: 8px 15px;
       color: black;
-    }
+      border: none;
 
-    .prev {
-      left: 0 !important; // Đặt vị trí nút "Previous" bên trái
-    }
-
-    .next {
-      right: 0 !important; // Đặt vị trí nút "Next" bên phải
+      &:hover {
+        background-color: yellow;
+        font-weight: bold;
+        color: white;
+      }
     }
   }
 }

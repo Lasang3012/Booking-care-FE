@@ -7,63 +7,54 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-function SampleNextArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={`${className} slider-arrow next`}
-      style={{ ...style, display: "block" }}
-      onClick={onClick}
-    />
-  );
-}
-
-function SamplePrevArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={`${className} slider-arrow prev`}
-      style={{ ...style, display: "block" }}
-      onClick={onClick}
-    />
-  );
-}
-
 class Specialty extends Component {
   render() {
     const settings = {
       dots: false,
       infinite: true,
-      slidesToShow: 3,
+      slidesToShow: 4,
       slidesToScroll: 1,
-      nextArrow: <SampleNextArrow />,
-      prevArrow: <SamplePrevArrow />,
     };
 
     return (
       <div className="section-specialty">
+        <div className="specialty-header">
+          <span>Chuyên khoa phổ biến</span>
+          <button>Xem thêm</button>
+        </div>
         <div className="specialty-content">
           <Slider {...settings}>
-            <div>
-              <h3>1</h3>
+            <div className="slider-item">
+              <div className="image"></div>
+              <div className="name">Khám thai</div>
             </div>
-            <div>
-              <h3>2</h3>
+            <div className="slider-item">
+              <div className="image"></div>
+              <div className="name">Khám thai</div>
             </div>
-            <div>
-              <h3>3</h3>
+            <div className="slider-item">
+              <div className="image"></div>
+              <div className="name">Khám thai</div>
             </div>
-            <div>
-              <h3>4</h3>
+            <div className="slider-item">
+              <div className="image"></div>
+              <div className="name">Khám thai</div>
             </div>
-            <div>
-              <h3>5</h3>
+            <div className="slider-item">
+              <div className="image"></div>
+              <div className="name">Khám thai</div>
             </div>
-            <div>
-              <h3>6</h3>
+            <div className="slider-item">
+              <div className="image"></div>
+              <div className="name">Khám thai</div>
             </div>
           </Slider>
         </div>
+
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
       </div>
     );
   }
