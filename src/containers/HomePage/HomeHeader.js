@@ -3,31 +3,13 @@ import { connect } from "react-redux";
 import "./HomeHeader.scss";
 import { FormattedMessage } from "react-intl";
 import { LANGUAGES } from "../../utils/constant";
-import { changeLanguageApp } from "../../store/actions";
+import * as actions from "../../store/actions";
 import actionTypes from "../../store/actions/actionTypes";
 
 class HomeHeader extends Component {
   changeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
   };
-  // Sticky Menu Area
-  // useEffect = () => {
-  //   window.addEventListener("scroll", isSticky);
-  //   return () => {
-  //     window.removeEventListener("scroll", isSticky);
-  //   };
-  // };
-
-  /* Method that will fix header after a specific scrollable */
-  // isSticky = (e) => {
-  //   const header = document.querySelector(".home-header-container");
-  //   const scrollTop = window.scrollY;
-  //   scrollTop >= 250
-  //     ? header.classList.add("is-sticky")
-  //     : header.classList.remove("is-sticky");
-  // };
-
-
   render() {
     return (
       <>
@@ -203,7 +185,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     changeLanguageAppRedux: (language) => {
-      return dispatch(changeLanguageApp(language));
+      return dispatch(actions.changeLanguageApp(language));
     },
   };
 };

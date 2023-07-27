@@ -13,7 +13,6 @@ import {
 import { path } from "../utils";
 
 import Home from "../routes/Home";
-import Header from "./Header/Header";
 import System from "../routes/System";
 
 import { CustomToastCloseButton } from "../components/CustomToast";
@@ -45,8 +44,6 @@ class App extends Component {
       <Fragment>
         <Router history={history}>
           <div className="main-container">
-            {this.props.isLoggedIn && <Header />}
-
             <div className="content-container">
               <CustomScrollbars style={{ position: "absolute" }}>
                 <Switch>
