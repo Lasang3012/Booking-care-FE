@@ -10,8 +10,25 @@ class HomeHeader extends Component {
   changeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
   };
+  // Sticky Menu Area
+  // useEffect = () => {
+  //   window.addEventListener("scroll", isSticky);
+  //   return () => {
+  //     window.removeEventListener("scroll", isSticky);
+  //   };
+  // };
+
+  /* Method that will fix header after a specific scrollable */
+  // isSticky = (e) => {
+  //   const header = document.querySelector(".home-header-container");
+  //   const scrollTop = window.scrollY;
+  //   scrollTop >= 250
+  //     ? header.classList.add("is-sticky")
+  //     : header.classList.remove("is-sticky");
+  // };
+
+
   render() {
-    console.log(this.props.language);
     return (
       <>
         <div className="home-header-container">

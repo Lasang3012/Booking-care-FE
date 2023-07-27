@@ -6,6 +6,8 @@ import MedicalFacility from "./Section/MedicalFacility";
 import "./HomePage.scss";
 import OutStandingDoctor from "./Section/OutStandingDoctor";
 import Handbook from "./Section/Handbook";
+import About from "./Section/About";
+import HomeFooter from "./HomeFooter";
 
 class HomePage extends Component {
   render() {
@@ -22,6 +24,8 @@ class HomePage extends Component {
         <MedicalFacility settings={settings} />
         <OutStandingDoctor settings={settings} />
         <Handbook settings={settings} />
+        <About />
+        <HomeFooter />
       </div>
     );
   }

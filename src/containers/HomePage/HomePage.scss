@@ -2,6 +2,13 @@
   display: flex;
   flex-direction: column;
 
+  &.section-about {
+    height: 500px !important;
+    padding: 0 100px;
+    border-top: 1px solid #efefef;
+    border-bottom: 1px solid #efefef;
+  }
+
   .section-content {
     height: auto;
     overflow: hidden;
@@ -143,4 +150,37 @@
 .section-outstanding-doctor {
   background-color: white;
   padding-bottom: 10px;
+}
+
+.home-footer {
+  text-align: center;
+  padding-top: 10px;
+  a {
+    text-decoration: none;
+  }
+}
+
+.section-about {
+  .section-about-header {
+    width: 50%;
+    padding: 20px 10px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .section-about-content {
+    display: flex;
+    gap: 20px;
+    .content-left {
+      position: relative;
+      width: 60%;
+    }
+    .content-right {
+      width: 40%;
+      p {
+        font-size: 20px;
+        font-weight: 300;
+        font-style: italic;
+      }
+    }
+  }
 }
