@@ -12,9 +12,9 @@ export const userLoginFail = () => ({
   type: actionTypes.USER_LOGIN_FAIL,
 });
 
-export const userLoginSuccess = (userInfo) => {
+export const userLoginSuccess = (userToken) => {
   return {
     type: actionTypes.USER_LOGIN_SUCCESS,
-    userInfo: userInfo,
+    userToken: userToken,
   };
 };

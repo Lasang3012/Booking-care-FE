@@ -6,11 +6,25 @@ import Navigator from "../../components/Navigator";
 import { adminMenu } from "./menuApp";
 import "./Header.scss";
 import { LANGUAGES } from "../../utils";
+import { FormattedMessage } from "react-intl";
+import { userService } from "../../services/";
 
 class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userInfo: {},
+    };
+  }
+  async componentDidMount() {
+    const userTokenFromRedux = this.props.userToken;
+    const result = await userService.getUserInfoByToken(userTokenFromRedux);
+    this.setState({
+      userInfo: result.userInfo,
+    });
+  }
   changeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
-    console.log("aaaa ", this.props);
   };
   render() {
     const { processLogout } = this.props;
@@ -23,6 +37,10 @@ class Header extends Component {
         </div>
 
         <div className="languages">
+          <span className="welcome">
+            <FormattedMessage id="home-header.welcome" />,{" "}
+            {this.state.userInfo?.name} !
+          </span>
           <span
             className={
               this.props.language === LANGUAGES.VI
@@ -61,6 +79,7 @@ const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
     language: state.app.language,
+    userToken: state.user.userToken,
   };
 };
 

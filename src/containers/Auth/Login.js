@@ -33,11 +33,11 @@ class Login extends Component {
       errMessage: "",
     });
     try {
-      const user = await userService.handleLogin(
+      const userToken = await userService.handleLogin(
         this.state.email,
         this.state.password
       );
-      this.props.userLoginSuccess(user.token);
+      this.props.userLoginSuccess(userToken.token);
     } catch (e) {
       if (e.data) {
         this.setState({
@@ -122,8 +122,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     navigate: (path) => dispatch(push(path)),
-    userLoginSuccess: (userInfo) =>
-      dispatch(actions.userLoginSuccess(userInfo)),
+    userLoginSuccess: (userToken) =>
+      dispatch(actions.userLoginSuccess(userToken)),
   };
 };
 
