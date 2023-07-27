@@ -13,9 +13,9 @@ class About extends Component {
               height="400px"
               src="https://www.youtube.com/embed/lNF3_A6GWYg"
               title="6-HOUR STUDY WITH ME with MAXIMUM 100% BATTERY OF SAMSUNG S23 ULTRA (speed of 2.5)"
-              frameborder="0"
+              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
+              allowFullScreen
             ></iframe>
           </div>
           <div className="content-right">
