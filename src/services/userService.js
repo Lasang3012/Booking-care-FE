@@ -17,8 +17,14 @@ const getListUser = () => {
   return axios.get("/users");
 };
 
+const getAllCode = async (queryParams) => {
+  const results = await axios.get("/codes", { params: { type: queryParams } });
+  return results;
+};
+
 export default {
   handleLogin: handleLogin,
   getListUser: getListUser,
   getUserInfoByToken: getUserInfoByToken,
+  getAllCode: getAllCode,
 };

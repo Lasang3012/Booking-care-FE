@@ -11,6 +11,14 @@ export const LANGUAGES = {
   EN: "en",
 };
 
+export const CODES = {
+  ROLE: "ROLE",
+  STATUS: "STATUS",
+  TIME: "TIME",
+  POSITION: "POSITION",
+  GENDER: "GENDER",
+};
+
 export const manageActions = {
   ADD: "ADD",
   EDIT: "EDIT",

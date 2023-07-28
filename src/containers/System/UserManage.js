@@ -16,7 +16,7 @@ class UserManage extends Component {
   }
 
   render() {
-    return <div className="text-center">Manage users</div>;
+    return <div className="text-center">Manage users aaaa</div>;
   }
 }
 
