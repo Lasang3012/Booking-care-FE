@@ -2,8 +2,8 @@ import messages_vi from '../translations/vi.json';
 import messages_en from '../translations/en.json';
 
 const flattenMessages = ((nestedMessages, prefix = '') => {
-    if (nestedMessages == null) {
-        return {}
+    if (nestedMessages === null) {
+      return {};
     }
     return Object.keys(nestedMessages).reduce((messages, key) => {
         const value = nestedMessages[key];
