@@ -71,3 +71,35 @@ export const getPositionFailed = (dispatch, getState) => {
     type: actionTypes.GET_ROLE_FAILED,
   };
 };
+
+export const createUser = (userInfo) => async (dispatch, getState) => {
+  try {
+    const results = await userService.createUser({
+      name: userInfo.name,
+      email: userInfo.email,
+      password: userInfo.password,
+      passwordConfirm: userInfo.passwordConfirm,
+      positionId: userInfo.positionId,
+      genderId: userInfo.genderId,
+      roleId: userInfo.roleId,
+      phone: userInfo.phone,
+    });
+    if (!results) {
+      dispatch(createUserFailed());
+    }
+    console.log(results);
+    // return dispatch({
+    //   type: actionTypes.CREATE_USER_SUCCESS,
+    //   data: results.data,
+    // });
+  } catch (e) {
+    dispatch(createUserFailed());
+    console.log(e);
+  }
+};
+
+export const createUserFailed = (dispatch, getState) => {
+  return {
+    type: actionTypes.CREATE_USER_FAILED,
+  };
+};
