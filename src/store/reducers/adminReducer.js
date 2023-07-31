@@ -4,6 +4,7 @@ const initialState = {
   gender: [],
   position: [],
   role: [],
+  listUser: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -41,6 +42,18 @@ const adminReducer = (state = initialState, action) => {
     case actionTypes.GET_POSITION_FAILED: {
       const copyState = { ...state };
       copyState.position = [];
+      return copyState;
+    }
+
+    case actionTypes.GET_LIST_USER_SUCCESS: {
+      const copyState = { ...state };
+      copyState.listUser = action.data;
+      return copyState;
+    }
+
+    case actionTypes.GET_LIST_USER_FAILED: {
+      const copyState = { ...state };
+      copyState.listUser = [];
       return copyState;
     }
 

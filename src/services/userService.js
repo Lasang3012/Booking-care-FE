@@ -1,5 +1,4 @@
 import axios from "../axios";
-import * as axios_2 from "axios";
 
 const handleLogin = (email, password) => {
   return axios.post("/users/login", {
@@ -15,7 +14,7 @@ const getUserInfoByToken = (token) => {
 };
 
 const getListUser = () => {
-  return axios.get("/users");
+  return axios.get("/users", { params: { createdAt: "desc" } });
 };
 
 // hàm lồn bị lỗi nên không thể sử dụng dược
