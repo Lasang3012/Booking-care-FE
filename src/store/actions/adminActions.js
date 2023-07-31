@@ -1,6 +1,7 @@
 import actionTypes from "./actionTypes";
 import { userService } from "../../services";
 import { CODES } from "../../utils";
+import axios from "axios";
 
 export const getGenderStart = () => async (dispatch, getState) => {
   try {
@@ -74,16 +75,7 @@ export const getPositionFailed = (dispatch, getState) => {
 
 export const createUser = (userInfo) => async (dispatch, getState) => {
   try {
-    const results = await userService.createUser({
-      name: userInfo.name,
-      email: userInfo.email,
-      password: userInfo.password,
-      passwordConfirm: userInfo.passwordConfirm,
-      positionId: userInfo.positionId,
-      genderId: userInfo.genderId,
-      roleId: userInfo.roleId,
-      phone: userInfo.phone,
-    });
+    const results = await axios.post("http://localhost:8088/users", userInfo);
     if (!results) {
       dispatch(createUserFailed());
     }

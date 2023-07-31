@@ -97,7 +97,17 @@ class UserRedux extends Component {
     if (!isEmpty) {
       return;
     }
-    this.props.createUser({ ...this.state });
+
+    this.props.createUser({
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password,
+      passwordConfirm: this.state.passwordConfirm,
+      positionId: this.state.positionId,
+      genderId: this.state.genderId,
+      roleId: this.state.roleId,
+      phone: this.state.phone,
+    });
   };
 
   onChangeInput = (event, id) => {

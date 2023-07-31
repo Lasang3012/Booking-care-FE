@@ -34,9 +34,7 @@ export const isSuccessStatusCode = (s) => {
 instance.interceptors.response.use(
   (response) => {
     // Thrown error for request with OK status code
-    console.log("ooooooo", response);
     const { data } = response;
-    console.log("aaaaaaaaaaaa", data);
     if (
       data.hasOwnProperty("s") &&
       !isSuccessStatusCode(data["s"]) &&

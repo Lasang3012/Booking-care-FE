@@ -1,4 +1,5 @@
 import axios from "../axios";
+import * as axios_2 from "axios";
 
 const handleLogin = (email, password) => {
   return axios.post("/users/login", {
@@ -17,27 +18,29 @@ const getListUser = () => {
   return axios.get("/users");
 };
 
-const createUser = (
-  name,
-  email,
-  password,
-  passwordConfirm,
-  positionId,
-  genderId,
-  roleId,
-  phone
-) => {
-  return axios.post("/users", {
-    email: email,
-    name: name,
-    password: password,
-    passwordConfirm: passwordConfirm,
-    positionId: positionId,
-    genderId: genderId,
-    roleId: roleId,
-    phone: phone,
-  });
-};
+// hàm lồn bị lỗi nên không thể sử dụng dược
+// const createUser = (
+//   name,
+//   email,
+//   password,
+//   passwordConfirm,
+//   positionId,
+//   genderId,
+//   roleId,
+//   phone
+// ) => {
+//   const test = {
+//     email: email,
+//     name: name,
+//     password: password,
+//     passwordConfirm: passwordConfirm,
+//     positionId: positionId,
+//     genderId: genderId,
+//     roleId: roleId,
+//     phone: phone,
+//   };
+//   return axios.post("http://localhost:8088/users", test);
+// };
 
 const getAllCode = async (queryParams) => {
   const results = await axios.get("/codes", { params: { type: queryParams } });
@@ -49,5 +52,5 @@ export default {
   getListUser: getListUser,
   getUserInfoByToken: getUserInfoByToken,
   getAllCode: getAllCode,
-  createUser: createUser,
+  // createUser: createUser,
 };
