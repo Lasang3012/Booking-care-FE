@@ -19,10 +19,11 @@ export const CODES = {
   GENDER: "GENDER",
 };
 
-export const manageActions = {
-  ADD: "ADD",
+export const CRUD_ACTIONS = {
+  CREATE: "CREATE",
   EDIT: "EDIT",
   DELETE: "DELETE",
+  READ: "READ",
 };
 
 export const dateFormat = {

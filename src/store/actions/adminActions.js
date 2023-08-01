@@ -139,3 +139,27 @@ export const deleteUserFailed = (dispatch, getState) => {
     type: actionTypes.DELETE_USER_FAILED,
   };
 };
+
+export const editUserSuccess = (userId, data) => async (dispatch, getState) => {
+  try {
+    console.log("aaaaaaaa", userId, data);
+    const results = await axios.put(`http://localhost:8088/users/${userId}`, {
+      ...data,
+    });
+    if (!results) {
+      dispatch(editUserFailed());
+    }
+    toast.success("edit user success");
+    dispatch(getListUser());
+  } catch (e) {
+    dispatch(editUserFailed());
+    toast.success("edit user failed");
+    console.log(e);
+  }
+};
+
+export const editUserFailed = (dispatch, getState) => {
+  return {
+    type: actionTypes.EDIT_USER_FAILED,
+  };
+};

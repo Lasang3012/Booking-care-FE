@@ -36,6 +36,14 @@ class TableManageUser extends Component {
     }
   };
 
+  editUser = async (user) => {
+    try {
+      this.props.handleEditUserFromParent(user);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   render() {
     const listUser = this.state.listUserRedux;
     return (
@@ -67,9 +75,10 @@ class TableManageUser extends Component {
                     <button
                       type="submit"
                       className="btn btn-primary mb-3"
-                      style={{ "margin-right": "5px" }}
+                      style={{ marginRight: "5px" }}
+                      onClick={() => this.editUser(el)}
                     >
-                      Submit
+                      Edit
                     </button>
                     <button
                       type="submit"
