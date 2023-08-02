@@ -142,7 +142,6 @@ export const deleteUserFailed = (dispatch, getState) => {
 
 export const editUserSuccess = (userId, data) => async (dispatch, getState) => {
   try {
-    console.log("aaaaaaaa", userId, data);
     const results = await axios.put(`http://localhost:8088/users/${userId}`, {
       ...data,
     });
@@ -159,6 +158,53 @@ export const editUserSuccess = (userId, data) => async (dispatch, getState) => {
 };
 
 export const editUserFailed = (dispatch, getState) => {
+  return {
+    type: actionTypes.EDIT_USER_FAILED,
+  };
+};
+
+export const uploadAvatarUserSuccess = (file) => async (dispatch, getState) => {
+  try {
+    const formData = new FormData();
+    formData.append("image", file);
+    const results = await axios.post(
+      `http://localhost:8088/users/avatar`,
+      formData
+    );
+    if (!results) {
+      dispatch(editUserFailed());
+    }
+    return results;
+  } catch (e) {
+    dispatch(editUserFailed());
+    toast.success("edit user failed");
+    console.log(e);
+  }
+};
+
+export const uploadAvatarUserFailed = (dispatch, getState) => {
+  return {
+    type: actionTypes.EDIT_USER_FAILED,
+  };
+};
+
+export const getAvatarUserSuccess =
+  (imageName) => async (dispatch, getState) => {
+    try {
+      console.log("imageNameeeee ", imageName);
+      const results = await axios.get(
+        `http://localhost:8088/images/${imageName}`
+      );
+      if (!results) {
+        dispatch(getAvatarUserFailed());
+      }
+      return results;
+    } catch (e) {
+      dispatch(getAvatarUserFailed());
+    }
+  };
+
+export const getAvatarUserFailed = (dispatch, getState) => {
   return {
     type: actionTypes.EDIT_USER_FAILED,
   };

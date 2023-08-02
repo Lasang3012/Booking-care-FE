@@ -20,7 +20,6 @@ class UserRedux extends Component {
 
       name: "",
       email: "",
-      image: "",
       password: "",
       passwordConfirm: "",
       positionId: "",
@@ -29,6 +28,8 @@ class UserRedux extends Component {
       phone: "",
       action: "",
       userId: "",
+      image: "",
+      urlImage: "",
     };
   }
 
@@ -78,13 +79,20 @@ class UserRedux extends Component {
     }
   }
 
-  handleOnChangeImage = (event) => {
+  handleOnChangeImage = async (event) => {
     const data = event.target.files;
     const file = data[0];
     if (file) {
       const objectUrl = URL.createObjectURL(file);
       this.setState({
         previewImageUrl: objectUrl,
+      });
+    }
+    const imageFileData = await this.props.uploadAvatarUser(file);
+    if (imageFileData) {
+      const fileName = imageFileData.data.data.filename;
+      this.setState({
+        image: fileName,
       });
     }
   };
@@ -123,6 +131,7 @@ class UserRedux extends Component {
         genderId: this.state.genderId,
         roleId: this.state.roleId,
         phone: this.state.phone,
+        image: this.state.image,
       });
     } else {
       // fire redux edit user
@@ -135,6 +144,7 @@ class UserRedux extends Component {
         genderId: this.state.genderId,
         roleId: this.state.roleId,
         phone: this.state.phone,
+        image: this.state.image,
       });
     }
   };
@@ -147,7 +157,7 @@ class UserRedux extends Component {
     });
   };
 
-  handleEditUserFromParent = (user) => {
+  handleEditUserFromParent = async (user) => {
     this.setState({
       userId: user.id,
       name: user.name,
@@ -160,6 +170,7 @@ class UserRedux extends Component {
       positionId: user.positionId,
       genderId: user.genderId,
       action: CRUD_ACTIONS.EDIT,
+      previewImageUrl: `http://localhost:8088/images/${user.image}`,
     });
   };
 
@@ -185,15 +196,15 @@ class UserRedux extends Component {
               <div className="row">
                 <div className="col-12 my-3">Thêm mới người dùng</div>
                 <div className="col-3">
-                  <div className="col-3">
-                    <label>Name:</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={name}
-                      onChange={(event) => this.onChangeInput(event, "name")}
-                    />
-                  </div>
+                  <label>Name:</label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    value={name}
+                    onChange={(event) => this.onChangeInput(event, "name")}
+                  />
+                </div>
+                <div className="col-3">
                   <label>Email:</label>
                   <input
                     className="form-control"
@@ -290,7 +301,7 @@ class UserRedux extends Component {
                 <div className="col-3">
                   <label>Ảnh đại diện:</label>
                   <div className="image-content">
-                    <div className="upload-image">
+                    <div className="upload-image" enctype="multipart/form-data">
                       <label htmlFor="formFile" className="label-upload">
                         Tải ảnh <i className="fas fa-upload"></i>
                       </label>
@@ -303,9 +314,15 @@ class UserRedux extends Component {
                     </div>
                     <div
                       className="preview-image"
-                      style={{
-                        backgroundImage: `url(${this.state.previewImageUrl})`,
-                      }}
+                      style={
+                        this.state.action === CRUD_ACTIONS.EDIT
+                          ? {
+                              backgroundImage: `url(http://localhost:8088/images/${image})`,
+                            }
+                          : {
+                              backgroundImage: `url(${this.state.previewImageUrl})`,
+                            }
+                      }
                       onClick={() => this.openPreviewImage()}
                     ></div>
                   </div>
@@ -377,6 +394,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     getListUser: () => {
       return dispatch(actions.getListUser());
+    },
+    uploadAvatarUser: (file) => {
+      return dispatch(actions.uploadAvatarUserSuccess(file));
+    },
+    getAvatarUser: (imageName) => {
+      return dispatch(actions.getAvatarUserSuccess(imageName));
     },
   };
 };
