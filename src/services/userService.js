@@ -42,7 +42,7 @@ const getListUser = () => {
 // };
 
 const getAllCode = async (queryParams) => {
-  const results = await axios.get("/codes", { params: { type: queryParams } });
+  const results = await axios.get("/codes", { params: queryParams });
   return results;
 };
 

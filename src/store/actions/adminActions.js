@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 export const getGenderStart = () => async (dispatch, getState) => {
   try {
-    const results = await userService.getAllCode(CODES.GENDER);
+    const results = await userService.getAllCode({ type: CODES.GENDER });
     if (!results) {
       dispatch(getGenderFailed());
     }
@@ -32,7 +32,7 @@ export const getGenderFailed = (dispatch, getState) => {
 
 export const getRoleSuccess = () => async (dispatch, getState) => {
   try {
-    const results = await userService.getAllCode(CODES.ROLE);
+    const results = await userService.getAllCode({ type: CODES.ROLE });
     if (!results) {
       dispatch(getRoleFailed());
     }
@@ -54,7 +54,7 @@ export const getRoleFailed = (dispatch, getState) => {
 
 export const getPositionSuccess = () => async (dispatch, getState) => {
   try {
-    const results = await userService.getAllCode(CODES.POSITION);
+    const results = await userService.getAllCode({ type: CODES.POSITION });
     if (!results) {
       dispatch(getPositionFailed());
     }

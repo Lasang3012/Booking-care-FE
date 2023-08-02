@@ -11,12 +11,23 @@ export const LANGUAGES = {
   EN: "en",
 };
 
+export const ORDERBY = {
+  DESC: "desc",
+  ASC: "asc",
+};
+
 export const CODES = {
   ROLE: "ROLE",
   STATUS: "STATUS",
   TIME: "TIME",
   POSITION: "POSITION",
   GENDER: "GENDER",
+};
+
+export const ROLE_KEYS = {
+  ADMIN: "R1",
+  DOCTOR: "R2",
+  PATIENT: "R3",
 };
 
 export const CRUD_ACTIONS = {

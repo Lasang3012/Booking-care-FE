@@ -3,6 +3,8 @@ import actionTypes from "../actions/actionTypes";
 const initialState = {
   isLoggedIn: false,
   userToken: null,
+  listDoctor: [],
+  listCode: [],
 };
 
 const appReducer = (state = initialState, action) => {
@@ -26,6 +28,30 @@ const appReducer = (state = initialState, action) => {
         isLoggedIn: false,
         userToken: null,
       };
+
+    case actionTypes.GET_LIST_CODE_SUCCESS: {
+      const copyState = { ...state };
+      copyState.listCode = action.data;
+      return copyState;
+    }
+
+    case actionTypes.GET_LIST_CODE_FAILED: {
+      const copyState = { ...state };
+      copyState.listCode = [];
+      return copyState;
+    }
+
+    case actionTypes.GET_LIST_DOCTOR_SUCCESS: {
+      const copyState = { ...state };
+      copyState.listDoctor = action.data;
+      return copyState;
+    }
+
+    case actionTypes.GET_LIST_DOCTOR_FAILED: {
+      const copyState = { ...state };
+      copyState.listDoctor = [];
+      return copyState;
+    }
     default:
       return state;
   }
