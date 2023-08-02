@@ -65,6 +65,7 @@ class OutStandingDoctor extends Component {
             {listDoctor &&
               listDoctor?.data?.length > 0 &&
               listDoctor.data.map((el) => {
+                console.log("aaaaaaa", el);
                 return (
                   <div className="slider-item slider-item-outstanding-doctor">
                     <div className="outer-bg">
@@ -77,56 +78,11 @@ class OutStandingDoctor extends Component {
                     </div>
                     <div className="name">
                       <div>{el.name}</div>
-                      <div>Sức khỏe tâm thần</div>
+                      <div>{el.positionName}</div>
                     </div>
                   </div>
                 );
               })}
-            <div className="slider-item slider-item-outstanding-doctor">
-              <div className="outer-bg">
-                <div className="image image-outstanding-doctor"></div>
-              </div>
-              <div className="name">
-                <div>Bác sĩ Sang</div>
-                <div>Sức khỏe tâm thần</div>
-              </div>
-            </div>
-            <div className="slider-item slider-item-outstanding-doctor">
-              <div className="outer-bg">
-                <div className="image image-outstanding-doctor"></div>
-              </div>
-              <div className="name">
-                <div>Bác sĩ Sang</div>
-                <div>Sức khỏe tâm thần</div>
-              </div>
-            </div>
-            <div className="slider-item slider-item-outstanding-doctor">
-              <div className="outer-bg">
-                <div className="image image-outstanding-doctor"></div>
-              </div>
-              <div className="name">
-                <div>Bác sĩ Sang</div>
-                <div>Sức khỏe tâm thần</div>
-              </div>
-            </div>
-            <div className="slider-item slider-item-outstanding-doctor">
-              <div className="outer-bg">
-                <div className="image image-outstanding-doctor"></div>
-              </div>
-              <div className="name">
-                <div>Bác sĩ Sang</div>
-                <div>Sức khỏe tâm thần</div>
-              </div>
-            </div>
-            <div className="slider-item slider-item-outstanding-doctor">
-              <div className="outer-bg">
-                <div className="image image-outstanding-doctor"></div>
-              </div>
-              <div className="name">
-                <div>Bác sĩ Sang</div>
-                <div>Sức khỏe tâm thần</div>
-              </div>
-            </div>
           </Slider>
         </div>
       </div>

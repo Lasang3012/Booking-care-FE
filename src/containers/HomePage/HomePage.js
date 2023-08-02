@@ -10,12 +10,14 @@ import About from "./Section/About";
 import HomeFooter from "./HomeFooter";
 
 class HomePage extends Component {
+  // handleAfterChange = (event, slick, currentSlide, nextSlide) => {};
   render() {
     const settings = {
       dots: false,
-      infinite: true,
+      infinite: false,
       slidesToShow: 4,
       slidesToScroll: 1,
+      // afterChange: this.handleAfterChange,
     };
     return (
       <div>
