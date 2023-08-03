@@ -3,6 +3,22 @@ import { connect } from "react-redux";
 import "./TableManageUser.scss";
 import * as actions from "../../../store/actions";
 
+import MarkdownIt from "markdown-it";
+import MdEditor from "react-markdown-editor-lite";
+// import style manually
+import "react-markdown-editor-lite/lib/index.css";
+
+// Register plugins if required
+// MdEditor.use(YOUR_PLUGINS_HERE);
+
+// Initialize a markdown parser
+const mdParser = new MarkdownIt(/* Markdown-it options */);
+
+// Finish!
+function handleEditorChange({ html, text }) {
+  console.log("handleEditorChange", html, text);
+}
+
 class TableManageUser extends Component {
   constructor(props) {
     super(props);
@@ -47,52 +63,59 @@ class TableManageUser extends Component {
   render() {
     const listUser = this.state.listUserRedux;
     return (
-      <table className="styled-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Status</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Gender Id</th>
-            <th>Role Id</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {listUser &&
-            listUser.length > 0 &&
-            listUser.map((el) => {
-              return (
-                <tr key={el.id}>
-                  <td>{el.name}</td>
-                  <td>{el.status}</td>
-                  <td>{el.email}</td>
-                  <td>{el.phone}</td>
-                  <td>{el.genderId}</td>
-                  <td>{el.roleId}</td>
-                  <td className="action-button">
-                    <button
-                      type="submit"
-                      className="btn btn-primary mb-3"
-                      style={{ marginRight: "5px" }}
-                      onClick={() => this.editUser(el)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      type="submit"
-                      className="btn btn-warning mb-3"
-                      onClick={() => this.deleteUser(el.id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </table>
+      <>
+        <table className="styled-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Status</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Gender Id</th>
+              <th>Role Id</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {listUser &&
+              listUser.length > 0 &&
+              listUser.map((el) => {
+                return (
+                  <tr key={el.id}>
+                    <td>{el.name}</td>
+                    <td>{el.status}</td>
+                    <td>{el.email}</td>
+                    <td>{el.phone}</td>
+                    <td>{el.genderId}</td>
+                    <td>{el.roleId}</td>
+                    <td className="action-button">
+                      <button
+                        type="submit"
+                        className="btn btn-primary mb-3"
+                        style={{ marginRight: "5px" }}
+                        onClick={() => this.editUser(el)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        type="submit"
+                        className="btn btn-warning mb-3"
+                        onClick={() => this.deleteUser(el.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </table>
+        <MdEditor
+          style={{ height: "500px" }}
+          renderHTML={(text) => mdParser.render(text)}
+          onChange={handleEditorChange}
+        />
+      </>
     );
   }
 }
