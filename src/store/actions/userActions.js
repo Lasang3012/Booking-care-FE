@@ -87,3 +87,25 @@ export const getAllCodeFailed = (dispatch, getState) => {
     type: actionTypes.GET_LIST_CODE_FAILED,
   };
 };
+
+export const getUserByIdSuccess = (userId) => async (dispatch, getState) => {
+  try {
+    const results = await axios.get(`http://localhost:8088/users/${userId}`);
+    if (!results) {
+      dispatch(getUserByIdFailed());
+    }
+    return dispatch({
+      type: actionTypes.GET_USER_BY_ID_SUCCESS,
+      data: results.data,
+    });
+  } catch (e) {
+    dispatch(getUserByIdFailed());
+    console.log(e);
+  }
+};
+
+export const getUserByIdFailed = (dispatch, getState) => {
+  return {
+    type: actionTypes.GET_LIST_CODE_FAILED,
+  };
+};

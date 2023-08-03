@@ -44,18 +44,22 @@
               display: flex !important;
               flex-direction: column !important;
               border-radius: 50%;
+              cursor: pointer;
+              &:hover {
+                opacity: 0.8;
+              }
             }
           }
 
           .name {
             margin-top: 10px;
             text-align: center;
-            span {
-              &:hover {
-                font-weight: bold;
-                color: blue;
-                cursor: pointer;
-              }
+            cursor: pointer;
+            &:hover {
+              font-weight: bold;
+              color: blue;
+              cursor: pointer;
+              opacity: 0.8;
             }
           }
         }

@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Slider from "react-slick";
-
 // Import css files
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import * as actions from "../../../store/actions";
 import { ORDERBY, CODES, ROLE_KEYS } from "../../../utils";
+import { withRouter } from "react-router";
 
 class OutStandingDoctor extends Component {
   constructor(props) {
@@ -52,6 +52,11 @@ class OutStandingDoctor extends Component {
       this.setState({ hasDoctorId: true });
     }
   };
+
+  handleViewDetailsDoctor = (doctorInfo) => {
+    this.props.history.push(`/details-doctor/${doctorInfo.id}`);
+  };
+
   render() {
     const listDoctor = this.props.listDoctor;
     return (
@@ -65,7 +70,6 @@ class OutStandingDoctor extends Component {
             {listDoctor &&
               listDoctor?.data?.length > 0 &&
               listDoctor.data.map((el) => {
-                console.log("aaaaaaa", el);
                 return (
                   <div className="slider-item slider-item-outstanding-doctor">
                     <div className="outer-bg">
@@ -109,4 +113,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OutStandingDoctor);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(OutStandingDoctor)
+);

@@ -77,99 +77,101 @@ class HomeHeader extends Component {
             </div>
           </div>
         </div>
-        <div className="home-header-banner">
-          <div className="content-up">
-            <div className="title1">NỀN TẢNG Y TẾ</div>
-            <div className="title2">CHĂM SÓC SỨC KHỎE TOÀN DIỆN</div>
-            <div className="search">
-              <i className="fas fa-search"></i>
-              <input type="text" placeholder="search" />
-            </div>
-          </div>
-          <div className="content-down">
-            <div className="options">
-              <div className="option1">
-                <div className="icon">
-                  <div className="image"></div>
-                </div>
-                <div className="text">
-                  Khám <br />
-                  Chuyên khoa
-                </div>
-              </div>
-              <div className="option2">
-                <div className="icon">
-                  <div className="image"></div>
-                </div>
-                <div className="text">
-                  Khám <br />
-                  từ xa
-                </div>
-              </div>
-              <div className="option3">
-                <div className="icon">
-                  <div className="image"></div>
-                </div>
-                <div className="text">
-                  Khám <br />
-                  tổng quát
-                </div>
-              </div>
-              <div className="option4">
-                <div className="icon">
-                  <div className="image"></div>
-                </div>
-                <div className="text">
-                  Xét nghiệm <br />y học
-                </div>
-              </div>
-              <div className="option5">
-                <div className="icon">
-                  <div className="image"></div>
-                </div>
-                <div className="text">
-                  Sức khỏe <br />
-                  tinh thần
-                </div>
-              </div>
-              <div className="option6">
-                <div className="icon">
-                  <div className="image"></div>
-                </div>
-                <div className="text">
-                  Khám <br />
-                  nha khoa
-                </div>
-              </div>
-              <div className="option7">
-                <div className="icon">
-                  <div className="image"></div>
-                </div>
-                <div className="text">
-                  Gói <br />
-                  phẫu thuật
-                </div>
-              </div>
-              <div className="option8">
-                <div className="icon">
-                  <div className="image"></div>
-                </div>
-                <div className="text">
-                  Sản phẩm <br />Y tế
-                </div>
-              </div>
-              <div className="option9">
-                <div className="icon">
-                  <div className="image"></div>
-                </div>
-                <div className="text">
-                  Bài test <br />
-                  Sức khỏe
-                </div>
+        {this.props.isShowBanner && (
+          <div className="home-header-banner">
+            <div className="content-up">
+              <div className="title1">NỀN TẢNG Y TẾ</div>
+              <div className="title2">CHĂM SÓC SỨC KHỎE TOÀN DIỆN</div>
+              <div className="search">
+                <i className="fas fa-search"></i>
+                <input type="text" placeholder="search" />
               </div>
             </div>
+            <div className="content-down">
+              <div className="options">
+                <div className="option1">
+                  <div className="icon">
+                    <div className="image"></div>
+                  </div>
+                  <div className="text">
+                    Khám <br />
+                    Chuyên khoa
+                  </div>
+                </div>
+                <div className="option2">
+                  <div className="icon">
+                    <div className="image"></div>
+                  </div>
+                  <div className="text">
+                    Khám <br />
+                    từ xa
+                  </div>
+                </div>
+                <div className="option3">
+                  <div className="icon">
+                    <div className="image"></div>
+                  </div>
+                  <div className="text">
+                    Khám <br />
+                    tổng quát
+                  </div>
+                </div>
+                <div className="option4">
+                  <div className="icon">
+                    <div className="image"></div>
+                  </div>
+                  <div className="text">
+                    Xét nghiệm <br />y học
+                  </div>
+                </div>
+                <div className="option5">
+                  <div className="icon">
+                    <div className="image"></div>
+                  </div>
+                  <div className="text">
+                    Sức khỏe <br />
+                    tinh thần
+                  </div>
+                </div>
+                <div className="option6">
+                  <div className="icon">
+                    <div className="image"></div>
+                  </div>
+                  <div className="text">
+                    Khám <br />
+                    nha khoa
+                  </div>
+                </div>
+                <div className="option7">
+                  <div className="icon">
+                    <div className="image"></div>
+                  </div>
+                  <div className="text">
+                    Gói <br />
+                    phẫu thuật
+                  </div>
+                </div>
+                <div className="option8">
+                  <div className="icon">
+                    <div className="image"></div>
+                  </div>
+                  <div className="text">
+                    Sản phẩm <br />Y tế
+                  </div>
+                </div>
+                <div className="option9">
+                  <div className="icon">
+                    <div className="image"></div>
+                  </div>
+                  <div className="text">
+                    Bài test <br />
+                    Sức khỏe
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
       </>
     );
   }

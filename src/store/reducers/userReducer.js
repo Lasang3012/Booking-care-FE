@@ -5,9 +5,10 @@ const initialState = {
   userToken: null,
   listDoctor: [],
   listCode: [],
+  userInfo: {},
 };
 
-const appReducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.USER_LOGIN_SUCCESS:
       return {
@@ -52,9 +53,22 @@ const appReducer = (state = initialState, action) => {
       copyState.listDoctor = [];
       return copyState;
     }
+
+    case actionTypes.GET_USER_BY_ID_SUCCESS: {
+      const copyState = { ...state };
+      copyState.userInfo = action.data;
+      return copyState;
+    }
+
+    case actionTypes.GET_USER_BY_ID_FAILED: {
+      const copyState = { ...state };
+      copyState.userInfo = {};
+      return copyState;
+    }
+
     default:
       return state;
   }
 };
 
-export default appReducer;
+export default userReducer;
