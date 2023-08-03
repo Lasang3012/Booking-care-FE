@@ -71,7 +71,10 @@ class OutStandingDoctor extends Component {
               listDoctor?.data?.length > 0 &&
               listDoctor.data.map((el) => {
                 return (
-                  <div className="slider-item slider-item-outstanding-doctor">
+                  <div
+                    className="slider-item slider-item-outstanding-doctor"
+                    onClick={() => this.handleViewDetailsDoctor(el)}
+                  >
                     <div className="outer-bg">
                       <div
                         className="image image-outstanding-doctor"
