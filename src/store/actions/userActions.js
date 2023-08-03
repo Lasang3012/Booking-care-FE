@@ -1,6 +1,7 @@
 import actionTypes from "./actionTypes";
 import axios from "axios";
 import { userService } from "../../services";
+import { toast } from "react-toastify";
 
 export const addUserSuccess = () => ({
   type: actionTypes.ADD_USER_SUCCESS,
@@ -41,6 +42,27 @@ export const getListDoctorSuccess = (query) => async (dispatch, getState) => {
 export const getListDoctorFailed = (dispatch, getState) => {
   return {
     type: actionTypes.EDIT_USER_FAILED,
+  };
+};
+
+export const createMarkdownDoctorSuccess =
+  (data) => async (dispatch, getState) => {
+    try {
+      const results = await axios.post(`http://localhost:8088/markdowns`, data);
+
+      if (!results) {
+        toast.warn("create markdown doctor failed");
+        dispatch(createMarkdownDoctorFailed());
+      }
+      toast.success("create markdown doctor success");
+    } catch (e) {
+      dispatch(createMarkdownDoctorFailed());
+    }
+  };
+
+export const createMarkdownDoctorFailed = (dispatch, getState) => {
+  return {
+    type: actionTypes.CREATE_MARKDOWN_DOCTOR_FAILED,
   };
 };
 
