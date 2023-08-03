@@ -93,6 +93,12 @@ class ManageDoctor extends Component {
       selectedDoctor: selectedDoctor,
       description: description,
     });
+    this.setState({
+      contentMarkdown: "",
+      contentMarkdownHTML: "",
+      selectedDoctor: "",
+      description: "",
+    });
   };
 
   handleOnChangeDescription = (event) => {
