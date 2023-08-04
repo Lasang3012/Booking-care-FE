@@ -32,6 +32,7 @@ class ManageDoctor extends Component {
       listCode: [],
       hasDoctorId: false,
       optionsDoctor: [],
+      userInfo: {},
     };
   }
 
@@ -98,6 +99,7 @@ class ManageDoctor extends Component {
       contentMarkdownHTML: "",
       selectedDoctor: "",
       description: "",
+      optionsDoctor: [],
     });
   };
 
@@ -105,8 +107,19 @@ class ManageDoctor extends Component {
     this.setState({ description: event.target.value });
   };
 
-  handleSelectedDoctor = (selectedDoctor) => {
-    this.setState({ selectedDoctor: selectedDoctor });
+  handleSelectedDoctor = async (selectedDoctor) => {
+    const userInfo = await this.props.getUserById(selectedDoctor.value);
+    const userData = userInfo.data.data;
+    if (userData.name && userData.markdown !== null && userData) {
+      this.setState({
+        contentMarkdown: userData.markdown.contentMarkdown,
+        contentMarkdownHTML: userData.markdown.contentHTML,
+        description: userData.markdown.description,
+        userInfo: userData,
+      });
+    } else {
+      this.setState({ selectedDoctor: selectedDoctor });
+    }
   };
 
   handleDataInputSelect = (data) => {
@@ -124,7 +137,9 @@ class ManageDoctor extends Component {
 
   render() {
     const language = this.props.language;
-    const { selectedDoctor, listCode, listDoctor, optionsDoctor } = this.state;
+    const { selectedDoctor, listCode, listDoctor, optionsDoctor, userInfo } =
+      this.state;
+    console.log("aaaaaaaaa", optionsDoctor);
     return (
       <div className="manage-doctor-container">
         <div className="manage-doctor-title">Tạo thêm thông tin doctor</div>
@@ -132,7 +147,7 @@ class ManageDoctor extends Component {
           <div className="content-left from-group">
             <label>Chọn bác sĩ</label>
             <Select
-              value={optionsDoctor[0]?.name}
+              value={optionsDoctor.length > 0 ? optionsDoctor[0]?.name : ""}
               onChange={this.handleSelectedDoctor}
               options={optionsDoctor}
               className="form-control"
@@ -155,14 +170,23 @@ class ManageDoctor extends Component {
           <MdEditor
             style={{ height: "500px" }}
             renderHTML={(text) => mdParser.render(text)}
+            value={this.state.contentMarkdown}
             onChange={this.handleEditorChange}
           />
         </div>
         <button
-          className="save-content-doctor"
+          className={
+            userInfo.name && userInfo.markdown !== null && userInfo
+              ? "save-content-doctor"
+              : "edit-content-doctor"
+          }
           onClick={() => this.handleSaveContentMarkdown()}
         >
-          Lưu thông tin
+          {userInfo.name && userInfo.markdown !== null && userInfo ? (
+            <span>Lưu thông tin</span>
+          ) : (
+            <span>Tạo thông tin</span>
+          )}
         </button>
       </div>
     );
@@ -175,6 +199,7 @@ const mapStateToProps = (state) => {
     isLoggedIn: state.user.isLoggedIn,
     listDoctor: state.user.listDoctor,
     listCode: state.user.listCode,
+    userInfo: state.user.userInfo,
   };
 };
 
@@ -188,6 +213,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     createMarkdownDoctor: (data) => {
       return dispatch(actions.createMarkdownDoctorSuccess(data));
+    },
+    getUserById: (userId) => {
+      return dispatch(actions.getUserByIdSuccess(userId));
     },
   };
 };

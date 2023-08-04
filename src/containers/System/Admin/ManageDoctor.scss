@@ -15,7 +15,6 @@
     gap: 20px;
     .content-left {
       width: 30%;
-      
     }
 
     .content-right {
@@ -30,6 +29,22 @@
     border: none;
     padding: 8px;
     background: #2edec7;
+    text-align: center;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  .edit-content-doctor {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    border: none;
+    padding: 8px;
+    background: #e0e414;
     text-align: center;
     font-weight: 600;
     cursor: pointer;
