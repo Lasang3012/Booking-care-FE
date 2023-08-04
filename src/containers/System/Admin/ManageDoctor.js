@@ -139,7 +139,6 @@ class ManageDoctor extends Component {
     const language = this.props.language;
     const { selectedDoctor, listCode, listDoctor, optionsDoctor, userInfo } =
       this.state;
-    console.log("aaaaaaaaa", optionsDoctor);
     return (
       <div className="manage-doctor-container">
         <div className="manage-doctor-title">Tạo thêm thông tin doctor</div>

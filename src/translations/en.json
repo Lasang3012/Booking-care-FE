@@ -34,5 +34,9 @@
       "manage-user": "User",
       "manage-schedule": "Manage Doctor's schedule"
     }
+  },
+
+  "manage-schedule": {
+    "title": "Manage doctor schedule"
   }
 }

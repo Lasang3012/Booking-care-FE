@@ -191,7 +191,6 @@ export const uploadAvatarUserFailed = (dispatch, getState) => {
 export const getAvatarUserSuccess =
   (imageName) => async (dispatch, getState) => {
     try {
-      console.log("imageNameeeee ", imageName);
       const results = await axios.get(
         `http://localhost:8088/images/${imageName}`
       );

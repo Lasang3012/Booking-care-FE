@@ -27,7 +27,6 @@ class Header extends Component {
       });
       const codeData = await this.props.getCodeById(userInfo.roleId);
       let menu = [];
-      console.log(codeData.data.data);
       if (codeData.data.data.key === ROLE_KEYS.ADMIN) {
         menu = adminMenu;
       }
