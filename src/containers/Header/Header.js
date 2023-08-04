@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 
 import * as actions from "../../store/actions";
 import Navigator from "../../components/Navigator";
-import { adminMenu } from "./menuApp";
+import { adminMenu, doctorMenu } from "./menuApp";
 import "./Header.scss";
-import { LANGUAGES } from "../../utils";
+import { LANGUAGES, ROLE_KEYS } from "../../utils";
 import { FormattedMessage } from "react-intl";
 import { userService } from "../../services/";
 
@@ -14,26 +14,45 @@ class Header extends Component {
     super(props);
     this.state = {
       userInfo: {},
+      menuApp: [],
     };
   }
   async componentDidMount() {
-    const userTokenFromRedux = this.props.userToken;
-    const result = await userService.getUserInfoByToken(userTokenFromRedux);
-    this.setState({
-      userInfo: result.userInfo,
-    });
+    try {
+      const userTokenFromRedux = this.props.userToken;
+      const result = await userService.getUserInfoByToken(userTokenFromRedux);
+      const userInfo = result.userInfo;
+      this.setState({
+        userInfo: userInfo,
+      });
+      const codeData = await this.props.getCodeById(userInfo.roleId);
+      let menu = [];
+      console.log(codeData.data.data);
+      if (codeData.data.data.key === ROLE_KEYS.ADMIN) {
+        menu = adminMenu;
+      }
+      if (codeData.data.data.key === ROLE_KEYS.DOCTOR) {
+        menu = doctorMenu;
+      }
+      this.setState({
+        menuApp: menu,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
+
   changeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
   };
+
   render() {
     const { processLogout } = this.props;
-
     return (
       <div className="header-container">
         {/* thanh navigator */}
         <div className="header-tabs-container">
-          <Navigator menus={adminMenu} />
+          <Navigator menus={this.state.menuApp} />
         </div>
 
         <div className="languages">
@@ -80,14 +99,17 @@ const mapStateToProps = (state) => {
     isLoggedIn: state.user.isLoggedIn,
     language: state.app.language,
     userToken: state.user.userToken,
+    codeData: state.user.codeData,
   };
 };
-
 const mapDispatchToProps = (dispatch) => {
   return {
     processLogout: () => dispatch(actions.processLogout()),
     changeLanguageAppRedux: (language) => {
       return dispatch(actions.changeLanguageApp(language));
+    },
+    getCodeById: (codeId) => {
+      return dispatch(actions.getCodeByIdSuccess(codeId));
     },
   };
 };

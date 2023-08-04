@@ -30,6 +30,11 @@
       "manage-specialty": "Cẩm nang",
       "handbook": "Cẩm nang",
       "manage-handbook": "Quản lý cẩm nang"
+    },
+
+    "doctor": {
+      "manage-user": "Quản lý người dùng",
+      "manage-schedule": "Quản lý kế hoạch khám bệnh"
     }
   }
 }

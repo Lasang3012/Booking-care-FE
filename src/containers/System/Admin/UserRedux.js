@@ -301,7 +301,7 @@ class UserRedux extends Component {
                 <div className="col-3">
                   <label>Ảnh đại diện:</label>
                   <div className="image-content">
-                    <div className="upload-image" enctype="multipart/form-data">
+                    <div className="upload-image" encType="multipart/form-data">
                       <label htmlFor="formFile" className="label-upload">
                         Tải ảnh <i className="fas fa-upload"></i>
                       </label>
