@@ -157,3 +157,22 @@ export const getCodeByIdFailed = (dispatch, getState) => {
     type: actionTypes.GET_CODE_BY_ID_FAILED,
   };
 };
+
+export const getSchedulesSuccess = (query) => async (dispatch, getState) => {
+  try {
+    const results = await axios.get("http://localhost:8088/schedules", {
+      params: query,
+    });
+    if (!results) {
+      dispatch(getSchedulesFailed());
+    }
+    return results;
+  } catch (e) {
+    dispatch(getSchedulesFailed());
+    console.log(e);
+  }
+};
+
+export const getSchedulesFailed = (dispatch, getState) => {
+  return {};
+};

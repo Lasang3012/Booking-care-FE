@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import "./DetailsDoctor.scss";
 import * as actions from "../../../store/actions";
 import HomeHeader from "../../HomePage/HomeHeader";
+import DoctorSchedule from "./DoctorSchedule";
 
 class DetailsDoctor extends Component {
   constructor(props) {
@@ -55,7 +56,12 @@ class DetailsDoctor extends Component {
               <div className="down">{markdown?.description}</div>
             </div>
           </div>
-          <div className="schedule-doctor"></div>
+          <div className="schedule-doctor">
+            <div className="content-left">
+              <DoctorSchedule userId={paramId} />
+            </div>
+            <div className="content-right"></div>
+          </div>
           <div className="detail-info-doctor">
             <div
               dangerouslySetInnerHTML={{
