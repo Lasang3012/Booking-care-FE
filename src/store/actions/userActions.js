@@ -90,7 +90,6 @@ export const getAllCodeFailed = (dispatch, getState) => {
 
 export const getUserByIdSuccess = (userId) => async (dispatch, getState) => {
   try {
-    console.log(userId);
     const results = await axios.get(`http://localhost:8088/users/${userId}`);
     if (!results) {
       dispatch(getUserByIdFailed());
