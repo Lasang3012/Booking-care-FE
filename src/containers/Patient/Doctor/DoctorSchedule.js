@@ -6,6 +6,7 @@ import chroma from "chroma-js";
 import moment from "moment/moment";
 import * as actions from "../../../store/actions";
 import vi from "moment/locale/vi";
+import { LANGUAGES } from "../../../utils";
 
 class DoctorSchedule extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class DoctorSchedule extends Component {
 
     this.state = {
       allDays: [],
+      allAvailableTime: [],
     };
   }
 
@@ -63,8 +65,20 @@ class DoctorSchedule extends Component {
       doctorId: this.props.userId,
       date: epochToDateTime.toISOString(),
     });
+    const availableSchedules = results.data.data;
+    let availableTimeArray = [];
+    for (let i = 0; i < availableSchedules.length; i++) {
+      const { timeKey, timeType } = availableSchedules[i];
+      const availableSchedule = await this.props.getListCode({
+        key: timeKey,
+        type: timeType,
+      });
+      availableTimeArray.push(availableSchedule.data[0]);
+    }
     //
-    console.log(results);
+    this.setState({
+      allAvailableTime: availableTimeArray,
+    });
   };
 
   componentDidUpdate = (prevProps, prevState, snapshot) => {};
@@ -90,6 +104,9 @@ class DoctorSchedule extends Component {
         ...styles,
         width: 200,
         backgroundColor: "white",
+        borderTop: "none",
+        borderLeft: "none",
+        borderRight: "none",
       }),
       option: (styles, { data, isDisabled, isFocused, isSelected }) => {
         const color = chroma(data.color);
@@ -130,6 +147,8 @@ class DoctorSchedule extends Component {
       placeholder: (styles) => ({ ...styles, ...dot("#ccc") }),
       singleValue: (styles, { data }) => ({ ...styles, ...dot(data.color) }),
     };
+    const { allAvailableTime } = this.state;
+    const language = this.props.language;
     return (
       <>
         <div className="doctor-schedule-container">
@@ -142,7 +161,25 @@ class DoctorSchedule extends Component {
               onChange={(value) => this.handleOnChangeSelectDate(value)}
             />
           </div>
-          <div className="all-available-time"></div>
+          <div className="all-available-time">
+            <div className="text-calendar">
+              <span>
+                <i className="fas fa-calendar-alt"></i>
+                Lịch khám
+              </span>
+            </div>
+            <div className="time-content">
+              {allAvailableTime && allAvailableTime.length > 0
+                ? allAvailableTime.map((el) => {
+                    return (
+                      <button key={el.id}>
+                        {language === LANGUAGES.VI ? el.valueVi : el.valueEn}
+                      </button>
+                    );
+                  })
+                : "Hôm nay không có lịch khám"}
+            </div>
+          </div>
         </div>
       </>
     );
@@ -150,13 +187,20 @@ class DoctorSchedule extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    language: state.app.language,
+    isLoggedIn: state.user.isLoggedIn,
+    listCode: state.user.listCode,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getSchedules: (data) => {
       return dispatch(actions.getSchedulesSuccess(data));
+    },
+    getListCode: (query) => {
+      return dispatch(actions.getAllCodeSuccess(query));
     },
   };
 };
