@@ -110,6 +110,32 @@ export const getUserByIdFailed = (dispatch, getState) => {
   };
 };
 
+export const createDoctorScheduleSuccess =
+  (data) => async (dispatch, getState) => {
+    try {
+      console.log(data);
+      const results = await axios.post("http://localhost:8088/schedules", {
+        data,
+      });
+      if (!results) {
+        dispatch(createDoctorScheduleFailed());
+      }
+      // return dispatch({
+      //   type: actionTypes.GET_USER_BY_ID_SUCCESS,
+      //   data: results.data,
+      // });
+    } catch (e) {
+      dispatch(createDoctorScheduleFailed());
+      console.log(e);
+    }
+  };
+
+export const createDoctorScheduleFailed = (dispatch, getState) => {
+  return {
+    type: actionTypes.GET_LIST_CODE_FAILED,
+  };
+};
+
 export const getCodeByIdSuccess = (codeId) => async (dispatch, getState) => {
   try {
     const result = await axios.get(`http://localhost:8088/codes/${codeId}`);

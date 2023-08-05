@@ -20,6 +20,7 @@ class ManageSchedule extends Component {
       currentDate: "",
       rangeTime: [],
       arrayDate: [],
+      newDataCreateSchedule: [],
     };
   }
 
@@ -122,13 +123,16 @@ class ManageSchedule extends Component {
       const newDataCreateSchedule = isSelectedTime.map((el) => {
         return {
           doctorId: selectedDoctor.id,
-          data: currentDate,
+          date: currentDate,
           timeId: el.id,
           timeKey: el.key,
           timeType: el.type,
         };
       });
-
+      this.props.createDoctorSchedule(newDataCreateSchedule);
+      // this.setState({
+      //   newDataCreateSchedule: newDataCreateSchedule,
+      // });
     }
   };
 
@@ -226,6 +230,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     getUserById: (userId) => {
       return dispatch(actions.getUserByIdSuccess(userId));
+    },
+    createDoctorSchedule: (data) => {
+      return dispatch(actions.createDoctorScheduleSuccess(data));
     },
   };
 };
