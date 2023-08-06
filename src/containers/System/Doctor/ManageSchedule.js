@@ -28,7 +28,7 @@ class ManageSchedule extends Component {
     try {
       this.props.getListDoctor({
         createdAt: "desc",
-        roleId: "abc2",
+        roleId: "role_2",
       });
       this.props.getListCode({
         type: CODES.TIME,

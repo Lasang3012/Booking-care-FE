@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import * as reactSelect from "../../../utils/CustomReactSelect";
 import { connect } from "react-redux";
 import { userService } from "../../../services";
 import {
@@ -33,6 +34,17 @@ class ManageDoctor extends Component {
       hasDoctorId: false,
       optionsDoctor: [],
       userInfo: {},
+
+      // save doctor info table
+      listPrice: [],
+      listPayment: [],
+      listProvince: [],
+      selectedPrice: {},
+      selectedPayment: {},
+      selectedProvince: {},
+      nameClinic: "",
+      addressClinic: "",
+      note: "",
     };
   }
 
@@ -42,6 +54,7 @@ class ManageDoctor extends Component {
         type: CODES.ROLE,
         key: ROLE_KEYS.DOCTOR,
       });
+      this.props.getDoctorInfoRequire();
     } catch (e) {
       console.log("Lỗi ở component User redux");
     }
@@ -50,6 +63,8 @@ class ManageDoctor extends Component {
   componentDidUpdate = (prevProps, prevState, snapshot) => {
     const listDoctor = this.props.listDoctor;
     const listCode = this.props.listCode;
+    const language = this.props.language;
+    const listDoctorInfo = this.props.listDoctorInfo;
     if (prevProps.listDoctor !== listDoctor) {
       const dataSelect = this.handleDataInputSelect(listDoctor.data);
       this.setState({
@@ -60,6 +75,69 @@ class ManageDoctor extends Component {
     if (prevProps.listCode !== listCode) {
       this.setState({
         listCode: this.props.listCode,
+      });
+    }
+    if (prevProps.listDoctorInfo !== listDoctorInfo) {
+      const listPrice = listDoctorInfo.listPrice;
+      const listPayment = listDoctorInfo.listPayment;
+      const listProvince = listDoctorInfo.listProvince;
+      // price
+      const newListPrice = [];
+      for (let i = 0; i < listPrice.length; i++) {
+        const priceObj = {
+          id: "",
+          key: "",
+          label: "",
+          color: "",
+        };
+        priceObj.id = listPrice[i].id;
+        priceObj.key = listPrice[i].key;
+        priceObj.label =
+          language === LANGUAGES.VI
+            ? listPrice[i].valueVi
+            : listPrice[i].valueEn;
+        priceObj.color = reactSelect.colorOptionsData[i].color;
+        newListPrice.push(priceObj);
+      }
+      // payment
+      const newListPayment = [];
+      for (let i = 0; i < listPayment.length; i++) {
+        const priceObj = {
+          id: "",
+          key: "",
+          label: "",
+          color: "",
+        };
+        priceObj.value = listPayment[i].id;
+        priceObj.label =
+          language === LANGUAGES.VI
+            ? listPayment[i].valueVi
+            : listPayment[i].valueEn;
+        priceObj.color = reactSelect.colorOptionsData[i].color;
+        newListPayment.push(priceObj);
+      }
+      // province
+      const newListProvince = [];
+      for (let i = 0; i < listProvince.length; i++) {
+        const provinceObj = {
+          id: "",
+          key: "",
+          label: "",
+          color: "",
+        };
+        provinceObj.id = listProvince[i].id;
+        provinceObj.label =
+          language === LANGUAGES.VI
+            ? listProvince[i].valueVi
+            : listProvince[i].valueEn;
+        provinceObj.color = reactSelect.colorOptionsData[i].color;
+        newListProvince.push(provinceObj);
+      }
+      // set State
+      this.setState({
+        listPrice: newListPrice,
+        listPayment: newListPayment,
+        listProvince: newListProvince,
       });
     }
 
@@ -135,10 +213,24 @@ class ManageDoctor extends Component {
     return result;
   };
 
+  handleOnChangeSelectDate = (selectedDate) => {
+    console.log(selectedDate);
+  };
+
   render() {
     const language = this.props.language;
-    const { selectedDoctor, listCode, listDoctor, optionsDoctor, userInfo } =
-      this.state;
+    const {
+      selectedDoctor,
+      listCode,
+      listDoctor,
+      optionsDoctor,
+      userInfo,
+      listPrice,
+      listPayment,
+      listProvince,
+    } = this.state;
+    console.log(listPrice);
+
     return (
       <div className="manage-doctor-container">
         <div className="manage-doctor-title">Tạo thêm thông tin doctor</div>
@@ -153,6 +245,7 @@ class ManageDoctor extends Component {
               filterOption={createFilter({ ignoreAccents: false })}
             />
           </div>
+
           <div className="content-right">
             <label>Thông tin giới thiệu:</label>
             <textarea
@@ -165,6 +258,62 @@ class ManageDoctor extends Component {
             </textarea>
           </div>
         </div>
+
+        <div className="more-info-extra row">
+          <div className="col-4 form-group">
+            <label>Chọn giá</label>
+            <Select
+              options={listPrice && listPrice.length > 0 ? listPrice : []}
+              styles={reactSelect.colorStyles}
+              key={listPrice?.id}
+              value={listPrice?.valueVi}
+              placeholder={"Chọn giá"}
+              onChange={(value) => this.handleOnChangeSelectDate(value)}
+            />
+          </div>
+
+          <div className="col-4 form-group">
+            <label>Chọn phương thức thanh toán</label>
+            <Select
+              options={listPayment && listPayment.length > 0 ? listPayment : []}
+              styles={reactSelect.colorStyles}
+              key={listPayment?.id}
+              value={listPayment?.valueVi}
+              placeholder={"Chọn phương thức thanh toán"}
+              onChange={(value) => this.handleOnChangeSelectDate(value)}
+            />
+          </div>
+
+          <div className="col-4 form-group">
+            <label>Chọn tỉnh thành</label>
+            <Select
+              options={
+                listProvince && listProvince.length > 0 ? listProvince : []
+              }
+              styles={reactSelect.colorStyles}
+              key={listProvince?.id}
+              value={listProvince?.valueVi}
+              placeholder={"Chọn tỉnh thành"}
+              onChange={(value) => this.handleOnChangeSelectDate(value)}
+            />
+          </div>
+
+          <div className="col-4 form-group">
+            <label>Tên phòng khám</label>
+            <input className="form-control" />
+          </div>
+
+          <div className="col-4 form-group">
+            <label>Địa chỉ phòng khám</label>
+            <input className="form-control" />
+          </div>
+
+          <div className="col-4 form-group">
+            <label>Note (ghi chú)</label>
+            <input className="form-control" />
+          </div>
+        </div>
+
         <div className="manage-doctor-editor">
           <MdEditor
             style={{ height: "500px" }}
@@ -173,6 +322,7 @@ class ManageDoctor extends Component {
             onChange={this.handleEditorChange}
           />
         </div>
+
         <button
           className={
             userInfo.name && userInfo.markdown !== null && userInfo
@@ -199,6 +349,7 @@ const mapStateToProps = (state) => {
     listDoctor: state.user.listDoctor,
     listCode: state.user.listCode,
     userInfo: state.user.userInfo,
+    listDoctorInfo: state.user.listDoctorInfo,
   };
 };
 
@@ -215,6 +366,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     getUserById: (userId) => {
       return dispatch(actions.getUserByIdSuccess(userId));
+    },
+    getDoctorInfoRequire: () => {
+      return dispatch(actions.getDoctorInfoRequire());
     },
   };
 };

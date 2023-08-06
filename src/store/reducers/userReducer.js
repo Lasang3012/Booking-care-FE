@@ -5,6 +5,7 @@ const initialState = {
   userToken: null,
   listDoctor: [],
   listCode: [],
+  listDoctorInfo: {},
   userInfo: {},
   codeData: {},
 };
@@ -66,15 +67,15 @@ const userReducer = (state = initialState, action) => {
       return copyState;
     }
 
-    case actionTypes.GET_CODE_BY_ID_SUCCESS: {
+    case actionTypes.GET_LIST_CODE_BY_TYPE_PRICE_PROVINCE_PAYMENT_SUCCESS: {
       const copyState = { ...state };
-      copyState.codeData = action.data;
+      copyState.listDoctorInfo = action.data;
       return copyState;
     }
 
-    case actionTypes.GET_CODE_BY_ID_FAILED: {
+    case actionTypes.GET_LIST_CODE_BY_TYPE_PRICE_PROVINCE_PAYMENT_FAILED: {
       const copyState = { ...state };
-      copyState.codeData = {};
+      copyState.listDoctorInfo = {};
       return copyState;
     }
 

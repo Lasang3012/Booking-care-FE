@@ -149,7 +149,6 @@ class DoctorSchedule extends Component {
     };
     const { allAvailableTime } = this.state;
     const language = this.props.language;
-    console.log(this.state);
     return (
       <>
         <div className="doctor-schedule-container">

@@ -2,6 +2,7 @@ import actionTypes from "./actionTypes";
 import axios from "axios";
 import { userService } from "../../services";
 import { toast } from "react-toastify";
+import { CODES } from "../../utils";
 
 export const addUserSuccess = () => ({
   type: actionTypes.ADD_USER_SUCCESS,
@@ -175,4 +176,32 @@ export const getSchedulesSuccess = (query) => async (dispatch, getState) => {
 
 export const getSchedulesFailed = (dispatch, getState) => {
   return {};
+};
+
+export const getDoctorInfoRequire = (query) => async (dispatch, getState) => {
+  try {
+    const listPrice = await userService.getAllCode({ type: CODES.PRICE });
+    const listPayment = await userService.getAllCode({ type: CODES.PAYMENT });
+    const listProvince = await userService.getAllCode({ type: CODES.PROVINCE });
+    if (!listPrice && !listPayment && !listProvince) {
+      dispatch(getDoctorInfoRequireFailed());
+    }
+    return dispatch({
+      type: actionTypes.GET_LIST_CODE_BY_TYPE_PRICE_PROVINCE_PAYMENT_SUCCESS,
+      data: {
+        listPrice: listPrice.data,
+        listPayment: listPayment.data,
+        listProvince: listProvince.data,
+      },
+    });
+  } catch (e) {
+    dispatch(getDoctorInfoRequireFailed());
+    console.log(e);
+  }
+};
+
+export const getDoctorInfoRequireFailed = (dispatch, getState) => {
+  return {
+    type: actionTypes.GET_LIST_CODE_BY_TYPE_PRICE_PROVINCE_PAYMENT_FAILED,
+  };
 };

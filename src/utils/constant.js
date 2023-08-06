@@ -23,6 +23,9 @@ export const CODES = {
   TIME: "TIME",
   POSITION: "POSITION",
   GENDER: "GENDER",
+  PROVINCE: "PROVINCE",
+  PRICE: "PRICE",
+  PAYMENT: "PAYMENT",
 };
 
 export const ROLE_KEYS = {
