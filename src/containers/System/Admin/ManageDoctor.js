@@ -45,6 +45,7 @@ class ManageDoctor extends Component {
       nameClinic: "",
       addressClinic: "",
       note: "",
+      moreInfo: {},
     };
   }
 
@@ -87,11 +88,13 @@ class ManageDoctor extends Component {
         const priceObj = {
           id: "",
           key: "",
+          value: "",
           label: "",
           color: "",
         };
         priceObj.id = listPrice[i].id;
         priceObj.key = listPrice[i].key;
+        priceObj.value = listPrice[i].id;
         priceObj.label =
           language === LANGUAGES.VI
             ? listPrice[i].valueVi
@@ -102,19 +105,22 @@ class ManageDoctor extends Component {
       // payment
       const newListPayment = [];
       for (let i = 0; i < listPayment.length; i++) {
-        const priceObj = {
+        const paymentObj = {
           id: "",
           key: "",
+          value: "",
           label: "",
           color: "",
         };
-        priceObj.value = listPayment[i].id;
-        priceObj.label =
+        paymentObj.id = listPayment[i].id;
+        paymentObj.key = listPayment[i].key;
+        paymentObj.value = listPayment[i].id;
+        paymentObj.label =
           language === LANGUAGES.VI
             ? listPayment[i].valueVi
             : listPayment[i].valueEn;
-        priceObj.color = reactSelect.colorOptionsData[i].color;
-        newListPayment.push(priceObj);
+        paymentObj.color = reactSelect.colorOptionsData[i].color;
+        newListPayment.push(paymentObj);
       }
       // province
       const newListProvince = [];
@@ -122,10 +128,13 @@ class ManageDoctor extends Component {
         const provinceObj = {
           id: "",
           key: "",
+          value: "",
           label: "",
           color: "",
         };
         provinceObj.id = listProvince[i].id;
+        provinceObj.key = listProvince[i].key;
+        provinceObj.value = listProvince[i].id;
         provinceObj.label =
           language === LANGUAGES.VI
             ? listProvince[i].valueVi
@@ -159,18 +168,31 @@ class ManageDoctor extends Component {
     });
   };
 
-  handleSaveContentMarkdown = async () => {
+  handleSaveContentMarkdownAndDoctorInfo = async () => {
     const {
       contentMarkdown,
       contentMarkdownHTML,
       selectedDoctor,
       description,
+      selectedPrice,
+      selectedPayment,
+      selectedProvince,
+      nameClinic,
+      addressClinic,
+      note,
     } = this.state;
     const result = await this.props.createMarkdownDoctor({
       contentMarkdown: contentMarkdown,
       contentMarkdownHTML: contentMarkdownHTML,
       selectedDoctor: selectedDoctor,
       description: description,
+      // more info:
+      selectedPrice: selectedPrice,
+      selectedPayment: selectedPayment,
+      selectedProvince: selectedProvince,
+      nameClinic: nameClinic,
+      addressClinic: addressClinic,
+      note: note,
     });
     this.setState({
       contentMarkdown: "",
@@ -188,12 +210,24 @@ class ManageDoctor extends Component {
   handleSelectedDoctor = async (selectedDoctor) => {
     const userInfo = await this.props.getUserById(selectedDoctor.value);
     const userData = userInfo.data.data;
+    console.log("ooooooooo", userData);
     if (userData.name && userData.markdown !== null && userData) {
       this.setState({
         contentMarkdown: userData.markdown.contentMarkdown,
         contentMarkdownHTML: userData.markdown.contentHTML,
         description: userData.markdown.description,
         userInfo: userData,
+        // more info
+
+        nameClinic: userData.moreInfo.nameClinic,
+        addressClinic: userData.moreInfo.addressClinic,
+        note: userData.moreInfo.note,
+        moreInfo: userData.moreInfo,
+        selectedPrice: {
+          id: userData.moreInfo.priceId,
+        },
+        selectedPayment: { id: userData.moreInfo.paymentId },
+        selectedProvince: { id: userData.moreInfo.provinceId },
       });
     } else {
       this.setState({ selectedDoctor: selectedDoctor });
@@ -213,8 +247,20 @@ class ManageDoctor extends Component {
     return result;
   };
 
-  handleOnChangeSelectDate = (selectedDate) => {
-    console.log(selectedDate);
+  handleOnChangeSelectData = (selectedData, id) => {
+    const copyState = { ...this.state };
+    copyState[id] = selectedData;
+    this.setState({
+      ...copyState,
+    });
+  };
+
+  handleOnChangeInput = (event, id) => {
+    const copyState = { ...this.state };
+    copyState[id] = event.target.value;
+    this.setState({
+      ...copyState,
+    });
   };
 
   render() {
@@ -228,8 +274,15 @@ class ManageDoctor extends Component {
       listPrice,
       listPayment,
       listProvince,
+      nameClinic,
+      addressClinic,
+      note,
+      moreInfo,
+      selectedPrice,
+      selectedPayment,
+      selectedProvince,
     } = this.state;
-    console.log(listPrice);
+    console.log(this.state);
 
     return (
       <div className="manage-doctor-container">
@@ -266,24 +319,26 @@ class ManageDoctor extends Component {
               options={listPrice && listPrice.length > 0 ? listPrice : []}
               styles={reactSelect.colorStyles}
               key={listPrice?.id}
-              value={listPrice?.valueVi}
+              value={listPrice.find((el) => el.id === selectedPrice.id)}
               placeholder={"Chọn giá"}
-              onChange={(value) => this.handleOnChangeSelectDate(value)}
+              onChange={(value) =>
+                this.handleOnChangeSelectData(value, "selectedPrice")
+              }
             />
           </div>
-
           <div className="col-4 form-group">
             <label>Chọn phương thức thanh toán</label>
             <Select
               options={listPayment && listPayment.length > 0 ? listPayment : []}
               styles={reactSelect.colorStyles}
               key={listPayment?.id}
-              value={listPayment?.valueVi}
+              value={listPayment.find((el) => el.id === selectedPayment.id)}
               placeholder={"Chọn phương thức thanh toán"}
-              onChange={(value) => this.handleOnChangeSelectDate(value)}
+              onChange={(value) =>
+                this.handleOnChangeSelectData(value, "selectedPayment")
+              }
             />
           </div>
-
           <div className="col-4 form-group">
             <label>Chọn tỉnh thành</label>
             <Select
@@ -292,25 +347,43 @@ class ManageDoctor extends Component {
               }
               styles={reactSelect.colorStyles}
               key={listProvince?.id}
-              value={listProvince?.valueVi}
+              value={listProvince.find((el) => el.id === selectedProvince.id)}
               placeholder={"Chọn tỉnh thành"}
-              onChange={(value) => this.handleOnChangeSelectDate(value)}
+              onChange={(value) =>
+                this.handleOnChangeSelectData(value, "selectedProvince")
+              }
             />
           </div>
-
           <div className="col-4 form-group">
             <label>Tên phòng khám</label>
-            <input className="form-control" />
+            <input
+              className="form-control"
+              type="text"
+              value={nameClinic}
+              onChange={(event) =>
+                this.handleOnChangeInput(event, "nameClinic")
+              }
+            />
           </div>
-
           <div className="col-4 form-group">
             <label>Địa chỉ phòng khám</label>
-            <input className="form-control" />
+            <input
+              className="form-control"
+              type="text"
+              value={addressClinic}
+              onChange={(event) =>
+                this.handleOnChangeInput(event, "addressClinic")
+              }
+            />
           </div>
-
           <div className="col-4 form-group">
             <label>Note (ghi chú)</label>
-            <input className="form-control" />
+            <input
+              className="form-control"
+              type="text"
+              value={note}
+              onChange={(event) => this.handleOnChangeInput(event, "note")}
+            />
           </div>
         </div>
 
@@ -329,7 +402,7 @@ class ManageDoctor extends Component {
               ? "save-content-doctor"
               : "edit-content-doctor"
           }
-          onClick={() => this.handleSaveContentMarkdown()}
+          onClick={() => this.handleSaveContentMarkdownAndDoctorInfo()}
         >
           {userInfo.name && userInfo.markdown !== null && userInfo ? (
             <span>Lưu thông tin</span>
