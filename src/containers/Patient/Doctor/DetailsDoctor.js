@@ -5,6 +5,7 @@ import "./DetailsDoctor.scss";
 import * as actions from "../../../store/actions";
 import HomeHeader from "../../HomePage/HomeHeader";
 import DoctorSchedule from "./DoctorSchedule";
+import DoctorExtraInfo from "./DoctorExtraInfo";
 
 class DetailsDoctor extends Component {
   constructor(props) {
@@ -60,7 +61,9 @@ class DetailsDoctor extends Component {
             <div className="content-left">
               <DoctorSchedule userId={paramId} />
             </div>
-            <div className="content-right"></div>
+            <div className="content-right">
+              <DoctorExtraInfo doctorIdFromParent={userInfo.id} />
+            </div>
           </div>
           <div className="detail-info-doctor">
             <div

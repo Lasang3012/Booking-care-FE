@@ -1,0 +1,81 @@
+.doctor-extra-info-container {
+  .content-up {
+    padding-left: 20px;
+    border-top: none;
+    margin-top: 0px;
+    border-left: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+
+    h3 {
+      text-transform: uppercase;
+      font-size: 20px;
+      color: #666;
+      font-weight: bold;
+    }
+    .name {
+      border-top: 2px solid #eee;
+      font-size: 15px;
+      padding: 3px 0;
+      font-weight: 600;
+    }
+
+    .address {
+      border-bottom: 2px solid #eee;
+      font-size: 15px;
+      padding-bottom: 5px;
+      padding-top: 5px;
+      font-weight: 600;
+    }
+  }
+  .content-down {
+    padding: 5px;
+    margin-left: 20px;
+
+    .title-price {
+      margin-left: 8px;
+      font-size: 20px;
+    }
+    .detail-info {
+      margin-left: 3px;
+      display: flex;
+      padding: 5px;
+      flex-direction: column;
+      background: #f8f8f8;
+      border: 1px solid #ddd;
+
+      .price {
+        width: 100%;
+
+        .left {
+          float: left;
+          font-weight: 600;
+          font-size: 20px;
+        }
+        .right {
+          float: right;
+          margin-right: 30px;
+          color: red;
+          font-weight: 600;
+          font-size: 25px;
+        }
+      }
+      .note {
+      }
+    }
+    .payment {
+      padding: 5px;
+      margin-left: 3px;
+      background: #dcdcdc;
+      margin-bottom: 10px;
+    }
+
+    .hide-detail {
+      color: #45c3d2;
+      font-weight: 600;
+      font-size: 15px;
+      margin-top: 10px;
+      padding-left: 5px;
+    }
+  }
+}

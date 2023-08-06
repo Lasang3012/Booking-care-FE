@@ -183,7 +183,8 @@ class DoctorSchedule extends Component {
 
               <div className="book-free">
                 <span>
-                  Chọn <i class="far fa-hand-point-up"></i> và đặt (miễn phí)
+                  Chọn <i className="far fa-hand-point-up"></i> và đặt (miễn
+                  phí)
                 </span>
               </div>
             </div>
