@@ -6,7 +6,6 @@
     margin: 0;
     color: #666;
     font-weight: bold;
-    
   }
   .all-available-time {
     padding: 0 15px;
@@ -26,24 +25,31 @@
       }
     }
     .time-content {
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-      button {
-        padding: 5px 10px;
-        border: none;
-        outline: none;
-        background: #eee;
-        color: #333;
-        min-width: 100px;
-        border-radius: 5px;
-        background-color: #fff04b;
-        font-weight: 600;
+      .time-content-btn {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        button {
+          padding: 5px 10px;
+          border: none;
+          outline: none;
+          background: #eee;
+          color: #333;
+          min-width: 100px;
+          border-radius: 5px;
+          background-color: #fff04b;
+          font-weight: 600;
 
-        &:hover {
-          background-color: #45c3d2;
-          color: white;
+          &:hover {
+            background-color: #45c3d2;
+            color: white;
+          }
         }
+      }
+      .book-free {
+        margin-top: 20px;
+        font-weight: 600;
+        font-size: 15px;
       }
     }
   }

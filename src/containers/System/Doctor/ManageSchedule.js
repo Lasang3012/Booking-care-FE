@@ -102,7 +102,7 @@ class ManageSchedule extends Component {
     this.setState({ rangeTime: listRangeTime });
   };
 
-  handleSaveSchedule = () => {
+  handleSaveSchedule = async () => {
     const { selectedDoctor, rangeTime, currentDate } = this.state;
     if (!currentDate) {
       toast.warn("Invalid date!");
@@ -129,15 +129,19 @@ class ManageSchedule extends Component {
           timeType: el.type,
         };
       });
-      this.props.createDoctorSchedule(newDataCreateSchedule);
-      // this.setState({
-      //   newDataCreateSchedule: newDataCreateSchedule,
-      // });
+      await this.props.createDoctorSchedule(newDataCreateSchedule);
+      rangeTime.map((el) => (el.isSelected = false));
+      this.setState({
+        optionsDoctor: [],
+        currentDate: new Date(),
+        rangeTime: rangeTime,
+      });
     }
   };
 
   render() {
     const { optionsDoctor, rangeTime } = this.state;
+    console.log(optionsDoctor);
     return (
       <div className="manage-schedule-container">
         <div className="manage-schedule-title">

@@ -45,10 +45,12 @@
   .schedule-doctor {
     margin: 0 100px;
     display: flex;
-    height: 200px;
+    padding: 10px 0;
+    min-height: 200px;
 
     .content-left {
       width: 60%;
+      border-right: 2px solid rgb(98, 187, 223);
     }
     .content-right {
       width: 40%;
@@ -57,6 +59,7 @@
 
   .detail-info-doctor {
     background-color: #f9f9f9;
+    padding-top: 30px;
     padding-left: 180px;
     padding-right: 180px;
     margin: 10px 0;

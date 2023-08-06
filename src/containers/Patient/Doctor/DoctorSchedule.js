@@ -149,6 +149,7 @@ class DoctorSchedule extends Component {
     };
     const { allAvailableTime } = this.state;
     const language = this.props.language;
+    console.log(this.state);
     return (
       <>
         <div className="doctor-schedule-container">
@@ -156,8 +157,8 @@ class DoctorSchedule extends Component {
             <Select
               options={this.state?.allDays}
               styles={colorStyles}
-              key={this.state?.color}
-              value={this.state?.value}
+              key={this.state?.allDays.color}
+              value={this.state?.allDays?.value}
               onChange={(value) => this.handleOnChangeSelectDate(value)}
             />
           </div>
@@ -169,15 +170,23 @@ class DoctorSchedule extends Component {
               </span>
             </div>
             <div className="time-content">
-              {allAvailableTime && allAvailableTime.length > 0
-                ? allAvailableTime.map((el) => {
-                    return (
-                      <button key={el.id}>
-                        {language === LANGUAGES.VI ? el.valueVi : el.valueEn}
-                      </button>
-                    );
-                  })
-                : "Hôm nay không có lịch khám"}
+              <div className="time-content-btn">
+                {allAvailableTime && allAvailableTime.length > 0
+                  ? allAvailableTime.map((el) => {
+                      return (
+                        <button key={el.id}>
+                          {language === LANGUAGES.VI ? el.valueVi : el.valueEn}
+                        </button>
+                      );
+                    })
+                  : "Hôm nay không có lịch khám"}
+              </div>
+
+              <div className="book-free">
+                <span>
+                  Chọn <i class="far fa-hand-point-up"></i> và đặt (miễn phí)
+                </span>
+              </div>
             </div>
           </div>
         </div>
