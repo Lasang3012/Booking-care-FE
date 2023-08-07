@@ -1,0 +1,21 @@
+.modal-content {
+  .modal-header {
+    padding: 5px 10px;
+    display: flex;
+    .modal-title {
+      font-weight: 600;
+      padding-left: 410px;
+    }
+    .btn-close {
+      font-size: 20px;
+      cursor: pointer;
+    }
+  }
+  .modal-body {
+  }
+  .modal-footer {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 10px;
+  }
+}

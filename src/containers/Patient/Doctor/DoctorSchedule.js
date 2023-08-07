@@ -7,6 +7,7 @@ import moment from "moment/moment";
 import * as actions from "../../../store/actions";
 import vi from "moment/locale/vi";
 import { LANGUAGES } from "../../../utils";
+import BookingModal from "./Modal/BookingModal";
 
 class DoctorSchedule extends Component {
   constructor(props) {
@@ -15,6 +16,8 @@ class DoctorSchedule extends Component {
     this.state = {
       allDays: [],
       allAvailableTime: [],
+      isOpenModalBooking: false,
+      dataSchedule: {},
     };
   }
 
@@ -83,6 +86,19 @@ class DoctorSchedule extends Component {
 
   componentDidUpdate = (prevProps, prevState, snapshot) => {};
 
+  handleClickScheduleTime = (el) => {
+    console.log(el);
+    const doctorId = this.props.userId;
+    this.setState({
+      isOpenModalBooking: true,
+      dataSchedule: { ...el, doctorId: doctorId },
+    });
+  };
+
+  handleCloseBookingModal = () => {
+    this.setState({ isOpenModalBooking: false });
+  };
+
   render() {
     const dot = (color = "transparent") => ({
       alignItems: "center",
@@ -147,7 +163,7 @@ class DoctorSchedule extends Component {
       placeholder: (styles) => ({ ...styles, ...dot("#ccc") }),
       singleValue: (styles, { data }) => ({ ...styles, ...dot(data.color) }),
     };
-    const { allAvailableTime } = this.state;
+    const { allAvailableTime, isOpenModalBooking } = this.state;
     const language = this.props.language;
     return (
       <>
@@ -173,7 +189,10 @@ class DoctorSchedule extends Component {
                 {allAvailableTime && allAvailableTime.length > 0
                   ? allAvailableTime.map((el) => {
                       return (
-                        <button key={el.id}>
+                        <button
+                          key={el.id}
+                          onClick={() => this.handleClickScheduleTime(el)}
+                        >
                           {language === LANGUAGES.VI ? el.valueVi : el.valueEn}
                         </button>
                       );
@@ -190,6 +209,12 @@ class DoctorSchedule extends Component {
             </div>
           </div>
         </div>
+
+        <BookingModal
+          isOpenModalBooking={isOpenModalBooking}
+          dataSchedule={this.state.dataSchedule}
+          handleCloseBookingModal={this.handleCloseBookingModal}
+        />
       </>
     );
   }
