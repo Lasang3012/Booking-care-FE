@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import styles from "./ProfileDoctor.scss";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import * as actions from "../../../store/actions";
+import moment from "moment";
 
 class ProfileDoctor extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class ProfileDoctor extends Component {
     this.state = {
       userInfo: {},
       userInfoImage: "",
+      isShowDescription: false,
     };
   }
 
@@ -31,6 +33,34 @@ class ProfileDoctor extends Component {
         userInfo: this.props.userInfo.data,
       });
     }
+  };
+
+  showDataTime = () => {
+    console.log();
+    const dataSchedule = this.props.dataSchedule;
+    console.log(dataSchedule);
+    const date = new Date();
+    moment.locale("vi"); // Set locale to Vietnamese
+    const formattedDate = moment(date)
+      .format("dddd - DD/MM/YYYY")
+      .replace(/^\w/, (c) => c.toUpperCase());
+    return (
+      <>
+        <span
+          style={{
+            fontWeight: 600,
+            fontSize: "18px",
+            borderBottom: "1px solid #555",
+          }}
+        >
+          {dataSchedule?.valueVi} - {formattedDate}
+        </span>{" "}
+        <br />
+        <span style={{ fontWeight: 600, fontSize: "15px" }}>
+          Miễn phí đặt lịch
+        </span>
+      </>
+    );
   };
 
   render() {
@@ -56,7 +86,13 @@ class ProfileDoctor extends Component {
             <div className="up">
               {userInfo?.name} <span> ({userInfo?.positionName})</span>
             </div>
-            <div className="down">{markdown?.description}</div>
+            <div className="down">
+              {this.state.isShowDescription ? (
+                markdown?.description
+              ) : (
+                <>{this.showDataTime()}</>
+              )}
+            </div>
           </div>
         </div>
       </>
