@@ -2,11 +2,16 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import styles from "./BookingModal.scss";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import ProfileDoctor from "../ProfileDoctor";
+import * as actions from "../../../../store/actions";
 
 class BookingModal extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      moreInfo: {},
+      userInfo: {},
+    };
   }
 
   async componentDidMount() {
@@ -16,13 +21,18 @@ class BookingModal extends Component {
     }
   }
 
-  componentDidUpdate = async (prevProps, prevState) => {};
+  componentDidUpdate = async (prevProps, prevState) => {
+    if (prevProps.userDoctorInfo !== this.props.userDoctorInfo) {
+      const doctorId = this.props.dataSchedule.doctorId;
+      await this.props.getDoctorUserMoreInfoById(doctorId);
+      this.setState({ moreInfo: this.props.userDoctorInfo.data });
+    }
+  };
 
   render() {
-    const { isShowDetailInfo, moreInfo } = this.state;
+    const { userInfo, moreInfo } = this.state;
     const { isOpenModalBooking, handleCloseBookingModal, dataSchedule } =
       this.props;
-    console.log(dataSchedule);
 
     return (
       <>
@@ -34,8 +44,18 @@ class BookingModal extends Component {
             Thông tin đặt lịch khám bệnh
           </ModalHeader>
           <ModalBody>
-            <div className="price">Giá khám 300.000vnd</div>
             <div className="row">
+              <div className="col-12 custom-profile">
+                <ProfileDoctor dataSchedule={dataSchedule} />
+              </div>
+              <div className="col-12">
+                Giá khám{" "}
+                {new Intl.NumberFormat("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                }).format(moreInfo?.priceNameVi)}{" "}
+                vnđ
+              </div>
               <div className="col-6 form-group">
                 <label> Họ tên </label>
                 <input className="form-control" />
@@ -79,11 +99,16 @@ class BookingModal extends Component {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
+    userDoctorInfo: state.user.userDoctorInfo,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    getDoctorUserMoreInfoById: (userId) => {
+      return dispatch(actions.getDoctorUserMoreInfoByIdSuccess(userId));
+    },
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookingModal);

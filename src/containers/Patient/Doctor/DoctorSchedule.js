@@ -87,7 +87,6 @@ class DoctorSchedule extends Component {
   componentDidUpdate = (prevProps, prevState, snapshot) => {};
 
   handleClickScheduleTime = (el) => {
-    console.log(el);
     const doctorId = this.props.userId;
     this.setState({
       isOpenModalBooking: true,
