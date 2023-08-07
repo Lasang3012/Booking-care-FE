@@ -34,6 +34,19 @@ export const ROLE_KEYS = {
   PATIENT: "R3",
 };
 
+export const ROLE_ID = {
+  ADMIN: "role_1",
+  DOCTOR: "role_2",
+  PATIENT: "role_3",
+};
+
+export const STATUS_BOOKING = {
+  NEW: "status_1",
+  CONFIRMED: "status_2",
+  DONE: "status_3",
+  CANCEL: "status_4",
+};
+
 export const CRUD_ACTIONS = {
   CREATE: "CREATE",
   EDIT: "EDIT",

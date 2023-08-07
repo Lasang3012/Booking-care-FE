@@ -36,9 +36,7 @@ class ProfileDoctor extends Component {
   };
 
   showDataTime = () => {
-    console.log();
     const dataSchedule = this.props.dataSchedule;
-    console.log(dataSchedule);
     const date = new Date();
     moment.locale("vi"); // Set locale to Vietnamese
     const formattedDate = moment(date)

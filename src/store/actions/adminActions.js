@@ -208,3 +208,21 @@ export const getAvatarUserFailed = (dispatch, getState) => {
     type: actionTypes.EDIT_USER_FAILED,
   };
 };
+
+export const saveBookingPatient = (data) => async (dispatch, getState) => {
+  try {
+    const results = await axios.post("http://localhost:8088/patients", data);
+    if (!results) {
+      dispatch(saveBookingPatientFailed());
+    }
+    return results;
+  } catch (e) {
+    dispatch(saveBookingPatientFailed());
+  }
+};
+
+export const saveBookingPatientFailed = (dispatch, getState) => {
+  return {
+    // type: actionTypes.EDIT_USER_FAILED,
+  };
+};
