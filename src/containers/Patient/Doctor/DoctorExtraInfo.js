@@ -9,6 +9,7 @@ class DoctorExtraInfo extends Component {
     super(props);
     this.state = {
       isShowDetailInfo: false,
+      moreInfo: {},
     };
   }
 
@@ -19,30 +20,44 @@ class DoctorExtraInfo extends Component {
     }
   }
 
-  componentDidUpdate = (prevProps, prevState) => {};
+  componentDidUpdate = async (prevProps, prevState) => {
+    if (prevProps.doctorIdFromParent !== this.props.doctorIdFromParent) {
+      const doctorUserMoreInfo = await this.props.getDoctorUserMoreInfoById(
+        this.props.doctorIdFromParent
+      );
+      this.setState({ moreInfo: doctorUserMoreInfo.data.data });
+    }
+  };
 
   handleShowOrHideDetail = () => {
     this.setState({
       isShowDetailInfo: !this.state.isShowDetailInfo,
     });
-    console.log(this.state.isShowDetailInfo);
   };
 
   render() {
-    const { isShowDetailInfo } = this.state;
+    const { isShowDetailInfo, moreInfo } = this.state;
     return (
       <>
         <div className="doctor-extra-info-container">
           <div className="content-up">
-            <h3>aaaaaa</h3>
-            <div className="name">bbbbbb</div>
-            <div className="address">vvvvvvvvv</div>
+            <h3>ĐỊA CHỈ KHÁM</h3>
+            <div className="name">{moreInfo?.nameClinic}</div>
+            <div className="address">{moreInfo?.addressClinic}</div>
           </div>
           <div className="content-down">
             {!isShowDetailInfo ? (
               <div>
-                Giá khám Giá tư vấn 15 phút: 250.000vnđ
-                <span onClick={() => this.handleShowOrHideDetail()}>
+                Giá khám:{" "}
+                {new Intl.NumberFormat("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                }).format(moreInfo?.priceNameVi)}{" "}
+                vnđ
+                <span
+                  onClick={() => this.handleShowOrHideDetail()}
+                  className="view-detail"
+                >
                   xem chi tiet
                 </span>
               </div>
@@ -52,14 +67,16 @@ class DoctorExtraInfo extends Component {
                 <div className="detail-info">
                   <div className="price">
                     <span className="left">Giá khám</span>
-                    <span className="right">11111</span>
+                    <span className="right">
+                      {new Intl.NumberFormat("vi-VN", {
+                        style: "currency",
+                        currency: "VND",
+                      }).format(moreInfo?.priceNameVi)}
+                    </span>
                   </div>
-                  <div className="note">
-                    Giá khám Giá tư vấn 15 phút: 250.000vnđ Giá tư vấn 30 phút:
-                    500.000vnđ 250.000đ - 500.000đ
-                  </div>
+                  <div className="note">{moreInfo?.note}</div>
                 </div>
-                <div className="payment">Giá khám Giá t</div>
+                <div className="payment">{moreInfo?.paymentNameVi}</div>
                 <span
                   onClick={() => this.handleShowOrHideDetail()}
                   className="hide-detail"
@@ -78,11 +95,16 @@ class DoctorExtraInfo extends Component {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
+    userDoctorInfo: state.user.userDoctorInfo,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    getDoctorUserMoreInfoById: (userId) => {
+      return dispatch(actions.getDoctorUserMoreInfoByIdSuccess(userId));
+    },
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DoctorExtraInfo);

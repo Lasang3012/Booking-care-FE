@@ -197,9 +197,14 @@ class ManageDoctor extends Component {
     this.setState({
       contentMarkdown: "",
       contentMarkdownHTML: "",
-      selectedDoctor: "",
+      selectedDoctor: {},
       description: "",
-      optionsDoctor: [],
+      selectedPrice: {},
+      selectedPayment: {},
+      selectedProvince: {},
+      nameClinic: "",
+      addressClinic: "",
+      note: "",
     });
   };
 
@@ -209,25 +214,42 @@ class ManageDoctor extends Component {
 
   handleSelectedDoctor = async (selectedDoctor) => {
     const userInfo = await this.props.getUserById(selectedDoctor.value);
+    const doctorUserInfo = await this.props.getDoctorUserMoreInfoById(
+      selectedDoctor.value
+    );
+    const doctorUserInfoData = doctorUserInfo?.data?.data;
     const userData = userInfo.data.data;
-    console.log("ooooooooo", userData);
     if (userData.name && userData.markdown !== null && userData) {
       this.setState({
         contentMarkdown: userData.markdown.contentMarkdown,
         contentMarkdownHTML: userData.markdown.contentHTML,
         description: userData.markdown.description,
         userInfo: userData,
-        // more info
-
-        nameClinic: userData.moreInfo.nameClinic,
-        addressClinic: userData.moreInfo.addressClinic,
-        note: userData.moreInfo.note,
-        moreInfo: userData.moreInfo,
-        selectedPrice: {
-          id: userData.moreInfo.priceId,
+        selectedDoctor: {
+          value: userData?.id ? userData?.id : "",
         },
-        selectedPayment: { id: userData.moreInfo.paymentId },
-        selectedProvince: { id: userData.moreInfo.provinceId },
+        // more info
+        nameClinic: doctorUserInfoData?.nameClinic
+          ? doctorUserInfoData?.nameClinic
+          : "",
+        addressClinic: doctorUserInfoData?.addressClinic
+          ? doctorUserInfoData?.addressClinic
+          : "",
+        note: doctorUserInfoData?.note ? doctorUserInfoData?.note : "",
+        moreInfo: doctorUserInfoData ? doctorUserInfoData : {},
+        selectedPrice: {
+          id: doctorUserInfoData?.priceId ? doctorUserInfoData?.priceId : "",
+        },
+        selectedPayment: {
+          id: doctorUserInfoData?.paymentId
+            ? doctorUserInfoData?.paymentId
+            : "",
+        },
+        selectedProvince: {
+          id: doctorUserInfoData?.provinceId
+            ? doctorUserInfoData?.provinceId
+            : "",
+        },
       });
     } else {
       this.setState({ selectedDoctor: selectedDoctor });
@@ -277,12 +299,10 @@ class ManageDoctor extends Component {
       nameClinic,
       addressClinic,
       note,
-      moreInfo,
       selectedPrice,
       selectedPayment,
       selectedProvince,
     } = this.state;
-    console.log(this.state);
 
     return (
       <div className="manage-doctor-container">
@@ -290,12 +310,20 @@ class ManageDoctor extends Component {
         <div className="more-info">
           <div className="content-left from-group">
             <label>Chọn bác sĩ</label>
+
             <Select
-              value={optionsDoctor.length > 0 ? optionsDoctor[0]?.name : ""}
               onChange={this.handleSelectedDoctor}
-              options={optionsDoctor}
+              options={
+                optionsDoctor && optionsDoctor.length > 0 ? optionsDoctor : []
+              }
+              value={
+                optionsDoctor.length > 0
+                  ? optionsDoctor.find(
+                      (el) => el.value === selectedDoctor.value
+                    )
+                  : ""
+              }
               className="form-control"
-              filterOption={createFilter({ ignoreAccents: false })}
             />
           </div>
 
@@ -319,7 +347,11 @@ class ManageDoctor extends Component {
               options={listPrice && listPrice.length > 0 ? listPrice : []}
               styles={reactSelect.colorStyles}
               key={listPrice?.id}
-              value={listPrice.find((el) => el.id === selectedPrice.id)}
+              value={
+                listPrice.length > 0
+                  ? listPrice.find((el) => el.id === selectedPrice.id)
+                  : ""
+              }
               placeholder={"Chọn giá"}
               onChange={(value) =>
                 this.handleOnChangeSelectData(value, "selectedPrice")
@@ -332,7 +364,11 @@ class ManageDoctor extends Component {
               options={listPayment && listPayment.length > 0 ? listPayment : []}
               styles={reactSelect.colorStyles}
               key={listPayment?.id}
-              value={listPayment.find((el) => el.id === selectedPayment.id)}
+              value={
+                listPayment.length > 0
+                  ? listPayment.find((el) => el.id === selectedPayment.id)
+                  : ""
+              }
               placeholder={"Chọn phương thức thanh toán"}
               onChange={(value) =>
                 this.handleOnChangeSelectData(value, "selectedPayment")
@@ -347,7 +383,11 @@ class ManageDoctor extends Component {
               }
               styles={reactSelect.colorStyles}
               key={listProvince?.id}
-              value={listProvince.find((el) => el.id === selectedProvince.id)}
+              value={
+                listPayment.length > 0
+                  ? listProvince.find((el) => el.id === selectedProvince.id)
+                  : ""
+              }
               placeholder={"Chọn tỉnh thành"}
               onChange={(value) =>
                 this.handleOnChangeSelectData(value, "selectedProvince")
@@ -422,6 +462,7 @@ const mapStateToProps = (state) => {
     listDoctor: state.user.listDoctor,
     listCode: state.user.listCode,
     userInfo: state.user.userInfo,
+    userDoctorInfo: state.user.userDoctorInfo,
     listDoctorInfo: state.user.listDoctorInfo,
   };
 };
@@ -439,6 +480,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     getUserById: (userId) => {
       return dispatch(actions.getUserByIdSuccess(userId));
+    },
+    getDoctorUserMoreInfoById: (userId) => {
+      return dispatch(actions.getDoctorUserMoreInfoByIdSuccess(userId));
     },
     getDoctorInfoRequire: () => {
       return dispatch(actions.getDoctorInfoRequire());

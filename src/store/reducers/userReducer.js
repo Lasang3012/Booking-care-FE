@@ -7,6 +7,7 @@ const initialState = {
   listCode: [],
   listDoctorInfo: {},
   userInfo: {},
+  userDoctorInfo: {},
   codeData: {},
 };
 
@@ -64,6 +65,18 @@ const userReducer = (state = initialState, action) => {
     case actionTypes.GET_USER_BY_ID_FAILED: {
       const copyState = { ...state };
       copyState.userInfo = {};
+      return copyState;
+    }
+
+    case actionTypes.GET_DOCTOR_USER_MORE_INFO_BY_ID_SUCCESS: {
+      const copyState = { ...state };
+      copyState.userDoctorInfo = action.data;
+      return copyState;
+    }
+
+    case actionTypes.GET_DOCTOR_USER_MORE_INFO_BY_ID_FAILED: {
+      const copyState = { ...state };
+      copyState.userDoctorInfo = {};
       return copyState;
     }
 

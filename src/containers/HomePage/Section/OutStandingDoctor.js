@@ -74,6 +74,7 @@ class OutStandingDoctor extends Component {
                   <div
                     className="slider-item slider-item-outstanding-doctor"
                     onClick={() => this.handleViewDetailsDoctor(el)}
+                    key={el.id}
                   >
                     <div className="outer-bg">
                       <div

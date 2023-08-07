@@ -4,7 +4,6 @@ import "./HomeHeader.scss";
 import { FormattedMessage } from "react-intl";
 import { LANGUAGES } from "../../utils/constant";
 import * as actions from "../../store/actions";
-import actionTypes from "../../store/actions/actionTypes";
 import { withRouter } from "react-router";
 
 class HomeHeader extends Component {
