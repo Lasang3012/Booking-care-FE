@@ -5,6 +5,7 @@ const initialState = {
   userToken: null,
   listDoctor: [],
   listCode: [],
+  listSpecialty: [],
   listDoctorInfo: {},
   userInfo: {},
   userDoctorInfo: {},
@@ -89,6 +90,18 @@ const userReducer = (state = initialState, action) => {
     case actionTypes.GET_LIST_CODE_BY_TYPE_PRICE_PROVINCE_PAYMENT_FAILED: {
       const copyState = { ...state };
       copyState.listDoctorInfo = {};
+      return copyState;
+    }
+
+    case actionTypes.GET_LIST_SPECIALTY_SUCCESS: {
+      const copyState = { ...state };
+      copyState.listSpecialty = action.data;
+      return copyState;
+    }
+
+    case actionTypes.GET_LIST_SPECIALTY_FAILED: {
+      const copyState = { ...state };
+      copyState.listSpecialty = {};
       return copyState;
     }
 

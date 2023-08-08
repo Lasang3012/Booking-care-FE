@@ -250,3 +250,27 @@ export const verifyPatientBookingFailed = (dispatch, getState) => {
     // type: actionTypes.GET_LIST_CODE_BY_TYPE_PRICE_PROVINCE_PAYMENT_FAILED,
   };
 };
+
+export const getListSpecialty = (query) => async (dispatch, getState) => {
+  try {
+    const results = await axios.get(`http://localhost:8088/specialties`, {
+      params: query,
+    });
+    if (!results) {
+      dispatch(getListSpecialtyFailed());
+    }
+    return dispatch({
+      type: actionTypes.GET_LIST_SPECIALTY_SUCCESS,
+      data: results.data,
+    });
+  } catch (e) {
+    dispatch(getListSpecialtyFailed());
+  }
+};
+
+export const getListSpecialtyFailed = (dispatch, getState) => {
+  return {
+    type: actionTypes.GET_LIST_SPECIALTY_FAILED,
+    data: [],
+  };
+};
