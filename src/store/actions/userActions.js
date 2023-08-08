@@ -207,6 +207,7 @@ export const getDoctorInfoRequire = (query) => async (dispatch, getState) => {
     const listPrice = await userService.getAllCode({ type: CODES.PRICE });
     const listPayment = await userService.getAllCode({ type: CODES.PAYMENT });
     const listProvince = await userService.getAllCode({ type: CODES.PROVINCE });
+
     if (!listPrice && !listPayment && !listProvince) {
       dispatch(getDoctorInfoRequireFailed());
     }
@@ -253,7 +254,7 @@ export const verifyPatientBookingFailed = (dispatch, getState) => {
 
 export const getListSpecialty = (query) => async (dispatch, getState) => {
   try {
-    const results = await axios.get(`http://localhost:8088/specialties`, {
+    const results = await axios.get("http://localhost:8088/specialties", {
       params: query,
     });
     if (!results) {

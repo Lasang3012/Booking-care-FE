@@ -95,7 +95,7 @@ const userReducer = (state = initialState, action) => {
 
     case actionTypes.GET_LIST_SPECIALTY_SUCCESS: {
       const copyState = { ...state };
-      copyState.listSpecialty = action.data;
+      copyState.listSpecialty = action.data.data;
       return copyState;
     }
 

@@ -31,6 +31,8 @@ class ManageDoctor extends Component {
       description: "",
       listDoctor: [],
       listCode: [],
+      listSpecialty: [],
+      listClinic: [],
       hasDoctorId: false,
       optionsDoctor: [],
       userInfo: {},
@@ -42,6 +44,7 @@ class ManageDoctor extends Component {
       selectedPrice: {},
       selectedPayment: {},
       selectedProvince: {},
+      selectedSpecialty: {},
       nameClinic: "",
       addressClinic: "",
       note: "",
@@ -56,6 +59,9 @@ class ManageDoctor extends Component {
         key: ROLE_KEYS.DOCTOR,
       });
       this.props.getDoctorInfoRequire();
+      this.props.getListSpecialty({
+        createdAt: "desc",
+      });
     } catch (e) {
       console.log("Lỗi ở component User redux");
     }
@@ -66,6 +72,8 @@ class ManageDoctor extends Component {
     const listCode = this.props.listCode;
     const language = this.props.language;
     const listDoctorInfo = this.props.listDoctorInfo;
+    const listSpecialty = this.props.listSpecialty;
+
     if (prevProps.listDoctor !== listDoctor) {
       const dataSelect = this.handleDataInputSelect(listDoctor.data);
       this.setState({
@@ -73,11 +81,13 @@ class ManageDoctor extends Component {
         optionsDoctor: dataSelect,
       });
     }
+
     if (prevProps.listCode !== listCode) {
       this.setState({
         listCode: this.props.listCode,
       });
     }
+
     if (prevProps.listDoctorInfo !== listDoctorInfo) {
       const listPrice = listDoctorInfo.listPrice;
       const listPayment = listDoctorInfo.listPayment;
@@ -147,6 +157,27 @@ class ManageDoctor extends Component {
         listPrice: newListPrice,
         listPayment: newListPayment,
         listProvince: newListProvince,
+      });
+    }
+    if (prevProps.listSpecialty !== listSpecialty) {
+      // specialty
+      const newListSpecialty = [];
+      for (let i = 0; i < listSpecialty.length; i++) {
+        const specialtyObj = {
+          key: "",
+          value: "",
+          label: "",
+          color: "",
+        };
+        specialtyObj.key = listSpecialty[i].id;
+        specialtyObj.value = listSpecialty[i].id;
+        specialtyObj.label = listSpecialty[i].name;
+        specialtyObj.color = reactSelect.colorOptionsData[i].color;
+        newListSpecialty.push(specialtyObj);
+      }
+      // set State
+      this.setState({
+        listSpecialty: newListSpecialty,
       });
     }
 
@@ -286,7 +317,7 @@ class ManageDoctor extends Component {
   };
 
   render() {
-    const language = this.props.language;
+    const { language } = this.props;
     const {
       selectedDoctor,
       listCode,
@@ -302,6 +333,8 @@ class ManageDoctor extends Component {
       selectedPrice,
       selectedPayment,
       selectedProvince,
+      listSpecialty,
+      selectedSpecialty,
     } = this.state;
 
     return (
@@ -358,6 +391,7 @@ class ManageDoctor extends Component {
               }
             />
           </div>
+
           <div className="col-4 form-group">
             <label>Chọn phương thức thanh toán</label>
             <Select
@@ -375,6 +409,7 @@ class ManageDoctor extends Component {
               }
             />
           </div>
+
           <div className="col-4 form-group">
             <label>Chọn tỉnh thành</label>
             <Select
@@ -394,6 +429,7 @@ class ManageDoctor extends Component {
               }
             />
           </div>
+
           <div className="col-4 form-group">
             <label>Tên phòng khám</label>
             <input
@@ -405,6 +441,7 @@ class ManageDoctor extends Component {
               }
             />
           </div>
+
           <div className="col-4 form-group">
             <label>Địa chỉ phòng khám</label>
             <input
@@ -416,6 +453,7 @@ class ManageDoctor extends Component {
               }
             />
           </div>
+
           <div className="col-4 form-group">
             <label>Note (ghi chú)</label>
             <input
@@ -423,6 +461,48 @@ class ManageDoctor extends Component {
               type="text"
               value={note}
               onChange={(event) => this.handleOnChangeInput(event, "note")}
+            />
+          </div>
+
+          <div className="col-4 form-group">
+            <label>Chọn chuyên khoa</label>
+            <Select
+              options={
+                listSpecialty && listSpecialty.length > 0 ? listSpecialty : []
+              }
+              styles={reactSelect.colorStyles}
+              key={listSpecialty?.id}
+              value={
+                listSpecialty.length > 0 && selectedSpecialty.value
+                  ? listSpecialty.find(
+                      (el) => el.id === selectedSpecialty.value
+                    )
+                  : ""
+              }
+              placeholder={"Chọn chuyên khoa"}
+              onChange={(value) =>
+                this.handleOnChangeSelectData(value, "selectedSpecialty")
+              }
+            />
+          </div>
+
+          <div className="col-4 form-group">
+            <label>Chọn phòng khám</label>
+            <Select
+              options={
+                listProvince && listProvince.length > 0 ? listProvince : []
+              }
+              styles={reactSelect.colorStyles}
+              key={listProvince?.id}
+              value={
+                listPayment.length > 0
+                  ? listProvince.find((el) => el.id === selectedProvince.id)
+                  : ""
+              }
+              placeholder={"Chọn phòng khám"}
+              onChange={(value) =>
+                this.handleOnChangeSelectData(value, "selectedProvince")
+              }
             />
           </div>
         </div>
@@ -464,6 +544,7 @@ const mapStateToProps = (state) => {
     userInfo: state.user.userInfo,
     userDoctorInfo: state.user.userDoctorInfo,
     listDoctorInfo: state.user.listDoctorInfo,
+    listSpecialty: state.user.listSpecialty,
   };
 };
 
@@ -486,6 +567,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     getDoctorInfoRequire: () => {
       return dispatch(actions.getDoctorInfoRequire());
+    },
+    getListSpecialty: (query) => {
+      return dispatch(actions.getListSpecialty(query));
     },
   };
 };
