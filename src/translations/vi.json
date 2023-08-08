@@ -10,8 +10,7 @@
       "system-administrator": {
         "header": "Quản trị hệ thống",
         "user-manage": "Quản lý người sử dụng",
-        "user-redux": "Quản lý nguời dùng bằng Redux",
-        "register-package-group-or-account": "Đăng ký gói dịch vụ cho nhóm/tài khoản"
+        "user-redux": "Quản lý nguời dùng bằng Redux"
       },
       "system-parameter": {
         "header": "Tham số hệ thống"
@@ -26,8 +25,7 @@
       "crud-redux": "CRUD redux",
       "clinic": "Phòng khám",
       "manage-clinic": "Quản lý phòng khám",
-      "specialty": "Chuyên khoa",
-      "manage-specialty": "Cẩm nang",
+      "manage-specialty": "Quản lý chuyên khoa",
       "handbook": "Cẩm nang",
       "manage-handbook": "Quản lý cẩm nang"
     },

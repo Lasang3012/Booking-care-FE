@@ -303,7 +303,6 @@ class ManageDoctor extends Component {
       selectedPayment,
       selectedProvince,
     } = this.state;
-    console.log(selectedDoctor);
 
     return (
       <div className="manage-doctor-container">

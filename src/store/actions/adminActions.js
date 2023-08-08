@@ -226,3 +226,48 @@ export const saveBookingPatientFailed = (dispatch, getState) => {
     // type: actionTypes.EDIT_USER_FAILED,
   };
 };
+
+export const uploadImageSpecialty = (file) => async (dispatch, getState) => {
+  try {
+    const formData = new FormData();
+    formData.append("image", file);
+    const results = await axios.post(
+      `http://localhost:8088/specialties/images`,
+      formData
+    );
+    if (!results) {
+      dispatch(uploadImageSpecialtyFailed());
+    }
+    return results;
+  } catch (e) {
+    dispatch(uploadImageSpecialtyFailed());
+    toast.success("edit user failed");
+    console.log(e);
+  }
+};
+
+export const uploadImageSpecialtyFailed = (dispatch, getState) => {
+  return {
+    type: actionTypes.EDIT_USER_FAILED,
+  };
+};
+
+export const saveSpecialtyData = (data) => async (dispatch, getState) => {
+  try {
+    const results = await axios.post(`http://localhost:8088/specialties`, data);
+    if (!results) {
+      dispatch(saveSpecialtyDataFailed());
+    }
+    return results;
+  } catch (e) {
+    dispatch(saveSpecialtyDataFailed());
+    toast.success("edit user failed");
+    console.log(e);
+  }
+};
+
+export const saveSpecialtyDataFailed = (dispatch, getState) => {
+  return {
+    // type: actionTypes.EDIT_USER_FAILED,
+  };
+};
