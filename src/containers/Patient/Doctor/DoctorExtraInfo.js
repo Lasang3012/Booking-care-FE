@@ -15,6 +15,12 @@ class DoctorExtraInfo extends Component {
 
   async componentDidMount() {
     try {
+      if (this.props.doctorIdFromParent) {
+        const doctorUserMoreInfo = await this.props.getDoctorUserMoreInfoById(
+          this.props.doctorIdFromParent
+        );
+        this.setState({ moreInfo: doctorUserMoreInfo.data.data });
+      }
     } catch (e) {
       console.log("Lỗi ở component User redux");
     }
@@ -63,7 +69,6 @@ class DoctorExtraInfo extends Component {
               </div>
             ) : (
               <>
-                <div className="title-price">Giá khám</div>
                 <div className="detail-info">
                   <div className="price">
                     <span className="left">Giá khám</span>

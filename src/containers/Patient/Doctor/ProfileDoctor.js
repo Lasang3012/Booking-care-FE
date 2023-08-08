@@ -17,7 +17,12 @@ class ProfileDoctor extends Component {
 
   async componentDidMount() {
     try {
-      const { dataSchedule } = this.props;
+      const { dataSchedule, isShowDescription } = this.props;
+      if (isShowDescription) {
+        this.setState({
+          isShowDescription: isShowDescription,
+        });
+      }
       const userId = dataSchedule.doctorId;
       this.props.getUserById(userId);
     } catch (e) {

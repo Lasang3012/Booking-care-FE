@@ -6,6 +6,7 @@ import * as actions from "../../../store/actions";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { ORDERBY } from "../../../utils";
+import { withRouter } from "react-router";
 
 class Specialty extends Component {
   constructor(props) {
@@ -36,8 +37,13 @@ class Specialty extends Component {
     }
   };
 
+  handleViewDetailsSpecialty = (specialtyInfo) => {
+    this.props.history.push(`/details-specialty/${specialtyInfo.id}`);
+  };
+
   render() {
     const { listSpecialty } = this.props;
+    console.log(listSpecialty);
 
     return (
       <div className="section-share section-specialty">
@@ -48,12 +54,12 @@ class Specialty extends Component {
         <div className="section-content">
           <Slider {...this.props.settings}>
             {listSpecialty &&
-              listSpecialty?.data?.length > 0 &&
-              listSpecialty.data.map((el) => {
+              listSpecialty?.length > 0 &&
+              listSpecialty.map((el) => {
                 return (
                   <div
                     className="slider-item slider-item-outstanding-doctor"
-                    onClick={() => this.handleViewDetailsDoctor(el)}
+                    onClick={() => this.handleViewDetailsSpecialty(el)}
                     key={el.id}
                   >
                     <div className="outer-bg">
@@ -92,4 +98,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(Specialty));

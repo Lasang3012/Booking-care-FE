@@ -117,6 +117,7 @@ export const getDoctorUserMoreInfoByIdSuccess =
       const results = await axios.get(
         `http://localhost:8088/doctors/${userId}`
       );
+      console.log("aaaaaa results", results);
       if (!results) {
         dispatch(getUserByIdFailed());
       }
