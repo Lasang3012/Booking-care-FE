@@ -229,3 +229,24 @@ export const getDoctorInfoRequireFailed = (dispatch, getState) => {
     type: actionTypes.GET_LIST_CODE_BY_TYPE_PRICE_PROVINCE_PAYMENT_FAILED,
   };
 };
+
+export const verifyPatientBooking =
+  (token, doctorId) => async (dispatch, getState) => {
+    try {
+      const results = await axios.put(
+        `http://localhost:8088/patients/verify-booking/${token}/${doctorId}`
+      );
+      if (!results) {
+        dispatch(verifyPatientBookingFailed());
+      }
+    } catch (e) {
+      dispatch(verifyPatientBookingFailed());
+      console.log(e);
+    }
+  };
+
+export const verifyPatientBookingFailed = (dispatch, getState) => {
+  return {
+    // type: actionTypes.GET_LIST_CODE_BY_TYPE_PRICE_PROVINCE_PAYMENT_FAILED,
+  };
+};
