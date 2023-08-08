@@ -18,6 +18,7 @@ class DoctorSchedule extends Component {
       allAvailableTime: [],
       isOpenModalBooking: false,
       dataSchedule: {},
+      dateChoose: "",
     };
   }
 
@@ -81,6 +82,8 @@ class DoctorSchedule extends Component {
     //
     this.setState({
       allAvailableTime: availableTimeArray,
+      dateChoose: dateChoose,
+      dateChooseEpoch: date,
     });
   };
 
@@ -213,6 +216,8 @@ class DoctorSchedule extends Component {
           isOpenModalBooking={isOpenModalBooking}
           dataSchedule={this.state.dataSchedule}
           handleCloseBookingModal={this.handleCloseBookingModal}
+          dateChoose={this.state.dateChoose}
+          dateChooseEpoch={this.state.dateChooseEpoch}
         />
       </>
     );

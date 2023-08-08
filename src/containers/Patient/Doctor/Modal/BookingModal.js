@@ -90,7 +90,8 @@ class BookingModal extends Component {
   saveBookingPatient = async () => {
     try {
       const { name, email, phone, selectedGender, roleId } = this.state;
-      const { dataSchedule } = this.props;
+      const { dataSchedule, dateChoose, dateChooseEpoch } = this.props;
+
       const result = await this.props.saveBookingPatient({
         name: name,
         email: email,
@@ -100,7 +101,7 @@ class BookingModal extends Component {
         statusId: STATUS_BOOKING.NEW,
         doctorId: dataSchedule.doctorId,
         timeType: "abc1",
-        date: "123456",
+        date: dateChooseEpoch + "",
       });
       if (result) {
         this.setState({ selectedGender: {} });
@@ -113,8 +114,13 @@ class BookingModal extends Component {
 
   render() {
     const { userInfo, moreInfo, listGender, selectedGender } = this.state;
-    const { isOpenModalBooking, handleCloseBookingModal, dataSchedule } =
-      this.props;
+    const {
+      isOpenModalBooking,
+      handleCloseBookingModal,
+      dataSchedule,
+      dateChoose,
+      dateChooseEpoch,
+    } = this.props;
 
     return (
       <>
@@ -128,7 +134,11 @@ class BookingModal extends Component {
           <ModalBody>
             <div className="row">
               <div className="col-12 custom-profile">
-                <ProfileDoctor dataSchedule={dataSchedule} />
+                <ProfileDoctor
+                  dataSchedule={dataSchedule}
+                  dateChoose={dateChoose}
+                  dateChooseEpoch={dateChooseEpoch}
+                />
               </div>
               <div className="col-12">
                 Giá khám{" "}

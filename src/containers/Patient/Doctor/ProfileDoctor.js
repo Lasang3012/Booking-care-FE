@@ -37,9 +37,10 @@ class ProfileDoctor extends Component {
 
   showDataTime = () => {
     const dataSchedule = this.props.dataSchedule;
-    const date = new Date();
+    const dateChoose = this.props.dateChoose;
+    // const date = new Date();
     moment.locale("vi"); // Set locale to Vietnamese
-    const formattedDate = moment(date)
+    const formattedDate = moment(dateChoose)
       .format("dddd - DD/MM/YYYY")
       .replace(/^\w/, (c) => c.toUpperCase());
     return (
