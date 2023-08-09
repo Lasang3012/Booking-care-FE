@@ -18,6 +18,7 @@ class DetailsSpecialty extends Component {
     super(props);
     this.state = {
       listDoctor: [],
+      specialtyInfo: {},
     };
   }
 
@@ -28,8 +29,12 @@ class DetailsSpecialty extends Component {
         const listDoctor = await this.props.getListDoctorByQuery({
           specialtyId: specialtyId,
         });
+        const specialtyInfo = await this.props.getSpecialtyById(specialtyId);
         if (listDoctor) {
-          this.setState({ listDoctor: listDoctor.data.data });
+          this.setState({
+            listDoctor: listDoctor.data.data,
+            specialtyInfo: specialtyInfo.data.data,
+          });
         }
       }
     } catch (e) {
@@ -40,11 +45,19 @@ class DetailsSpecialty extends Component {
   componentDidUpdate = (prevProps, prevState) => {};
 
   render() {
-    const { listDoctor } = this.state;
+    const { listDoctor, specialtyInfo } = this.state;
+    console.log("aaaaaaaaaaaaa", specialtyInfo);
     return (
       <div className="detail-specialty-container">
         <HomeHeader />
-        <div className="description-specialty"></div>
+        <div className="description-specialty">
+          <h3>{specialtyInfo.name}</h3>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: specialtyInfo?.descriptionHTML,
+            }}
+          ></div>
+        </div>
 
         {listDoctor &&
           listDoctor.length > 0 &&
@@ -87,6 +100,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getListDoctorByQuery: (query) => {
       return dispatch(actions.getListDoctorByQuery(query));
+    },
+    getSpecialtyById: (specialtyId) => {
+      return dispatch(actions.getSpecialtyById(specialtyId));
     },
   };
 };

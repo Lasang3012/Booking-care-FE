@@ -315,3 +315,23 @@ export const getUserByIdForListSpecialtyFailed = (dispatch, getState) => {
     // type: actionTypes.GET_LIST_CODE_FAILED,
   };
 };
+
+export const getSpecialtyById = (specialtyId) => async (dispatch, getState) => {
+  try {
+    const results = await axios.get(
+      `http://localhost:8088/specialties/${specialtyId}`
+    );
+    if (!results) {
+      dispatch(getSpecialtyByIdFailed());
+    }
+    return results;
+  } catch (e) {
+    dispatch(getSpecialtyByIdFailed());
+  }
+};
+
+export const getSpecialtyByIdFailed = (dispatch, getState) => {
+  return {
+    // type: actionTypes.EDIT_USER_FAILED,
+  };
+};
