@@ -47,7 +47,6 @@ class DetailsSpecialty extends Component {
 
   render() {
     const { listDoctor, specialtyInfo } = this.state;
-    console.log("listDoctor rrr", listDoctor);
     return (
       <div className="detail-specialty-container">
         <HomeHeader />

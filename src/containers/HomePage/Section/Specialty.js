@@ -14,7 +14,6 @@ class Specialty extends Component {
     this.state = {
       listDoctor: [],
       listCode: [],
-      hasDoctorId: false,
     };
   }
 

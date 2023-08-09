@@ -6,6 +6,7 @@ const initialState = {
   listDoctor: [],
   listCode: [],
   listSpecialty: [],
+  listClinic: [],
   listDoctorInfo: {},
   userInfo: {},
   userDoctorInfo: {},
@@ -102,6 +103,18 @@ const userReducer = (state = initialState, action) => {
     case actionTypes.GET_LIST_SPECIALTY_FAILED: {
       const copyState = { ...state };
       copyState.listSpecialty = {};
+      return copyState;
+    }
+
+    case actionTypes.GET_LIST_CLINIC_SUCCESS: {
+      const copyState = { ...state };
+      copyState.listClinic = action.data;
+      return copyState;
+    }
+
+    case actionTypes.GET_LIST_CLINIC_FAILED: {
+      const copyState = { ...state };
+      copyState.listClinic = [];
       return copyState;
     }
 

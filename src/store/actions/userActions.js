@@ -335,3 +335,48 @@ export const getSpecialtyByIdFailed = (dispatch, getState) => {
     // type: actionTypes.EDIT_USER_FAILED,
   };
 };
+
+// Clinic
+export const getListClinic = (query) => async (dispatch, getState) => {
+  try {
+    const results = await axios.get("http://localhost:8088/clinics", {
+      params: query,
+    });
+    if (!results) {
+      dispatch(getListClinicFailed());
+    }
+    return dispatch({
+      type: actionTypes.GET_LIST_CLINIC_SUCCESS,
+      data: results.data.data,
+    });
+  } catch (e) {
+    dispatch(getListClinicFailed());
+  }
+};
+
+export const getListClinicFailed = (dispatch, getState) => {
+  return {
+    type: actionTypes.GET_LIST_CLINIC_FAILED,
+    data: [],
+  };
+};
+
+export const getClinicById = (clinicId) => async (dispatch, getState) => {
+  try {
+    const results = await axios.get(
+      `http://localhost:8088/clinics/${clinicId}`
+    );
+    if (!results) {
+      dispatch(getClinicByIdFailed());
+    }
+    return results;
+  } catch (e) {
+    dispatch(getClinicByIdFailed());
+  }
+};
+
+export const getClinicByIdFailed = (dispatch, getState) => {
+  return {
+    // type: actionTypes.EDIT_USER_FAILED,
+  };
+};
