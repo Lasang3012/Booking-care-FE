@@ -49,8 +49,6 @@ class DoctorSchedule extends Component {
         object.color = colorDays[i];
         allDays.push(object);
       }
-
-      console.log(this.props);
       this.setState({
         allDays: allDays,
       });

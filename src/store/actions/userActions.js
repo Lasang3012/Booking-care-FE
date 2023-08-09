@@ -380,3 +380,27 @@ export const getClinicByIdFailed = (dispatch, getState) => {
     // type: actionTypes.EDIT_USER_FAILED,
   };
 };
+
+export const getListPatientBooking = (query) => async (dispatch, getState) => {
+  try {
+    const results = await axios.get(
+      `http://localhost:8088/doctors/patients-booking`,
+      {
+        params: query,
+      }
+    );
+    if (!results) {
+      dispatch(getListPatientBookingFailed());
+    }
+    return results;
+  } catch (e) {
+    dispatch(getListPatientBookingFailed());
+    console.log(e);
+  }
+};
+
+export const getListPatientBookingFailed = (dispatch, getState) => {
+  return {
+    // type: actionTypes.GET_LIST_CODE_FAILED,
+  };
+};
