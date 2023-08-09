@@ -17,28 +17,26 @@ class ProfileDoctor extends Component {
 
   async componentDidMount() {
     try {
-      const { dataSchedule, isShowDescription } = this.props;
+      const { dataSchedule, isShowDescription, userInfo } = this.props;
       if (isShowDescription) {
         this.setState({
           isShowDescription: isShowDescription,
         });
       }
-      const userId = dataSchedule.doctorId;
-      this.props.getUserById(userId);
+      if (dataSchedule?.doctorId) {
+        const result = await this.props.getUserByIdForListSpecialty(
+          dataSchedule?.doctorId
+        );
+        this.setState({
+          userInfo: result.data.data,
+        });
+      }
     } catch (e) {
       console.log("Lỗi ở component User redux");
     }
   }
 
-  componentDidUpdate = async (prevProps, prevState) => {
-    const userInfo = this.props.userInfo;
-
-    if (prevProps.userInfo !== userInfo) {
-      this.setState({
-        userInfo: this.props.userInfo.data,
-      });
-    }
-  };
+  componentDidUpdate = async (prevProps, prevState) => {};
 
   showDataTime = () => {
     const dataSchedule = this.props.dataSchedule;
@@ -70,7 +68,6 @@ class ProfileDoctor extends Component {
   render() {
     const { userInfo } = this.state;
     const markdown = userInfo.markdown;
-    const { dataSchedule } = this.props;
 
     return (
       <>
@@ -115,6 +112,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getUserById: (userId) => {
       return dispatch(actions.getUserByIdSuccess(userId));
+    },
+    getUserByIdForListSpecialty: (userId) => {
+      return dispatch(actions.getUserByIdForListSpecialty(userId));
     },
   };
 };

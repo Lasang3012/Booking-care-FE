@@ -17,12 +17,21 @@ class DetailsSpecialty extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrayDoctorId: ["7c802da9-8665-4158-89a7-e97a73728c1e"],
+      listDoctor: [],
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     try {
+      const specialtyId = this.props.match.params.id;
+      if (specialtyId) {
+        const listDoctor = await this.props.getListDoctorByQuery({
+          specialtyId: specialtyId,
+        });
+        if (listDoctor) {
+          this.setState({ listDoctor: listDoctor.data.data });
+        }
+      }
     } catch (e) {
       console.log("Lỗi ở component DetailsSpecialty redux");
     }
@@ -31,22 +40,22 @@ class DetailsSpecialty extends Component {
   componentDidUpdate = (prevProps, prevState) => {};
 
   render() {
-    const { arrayDoctorId } = this.state;
+    const { listDoctor } = this.state;
     return (
       <div className="detail-specialty-container">
         <HomeHeader />
         <div className="description-specialty"></div>
 
-        {arrayDoctorId &&
-          arrayDoctorId.length > 0 &&
-          arrayDoctorId.map((el) => {
+        {listDoctor &&
+          listDoctor.length > 0 &&
+          listDoctor.map((el) => {
             return (
-              <div className="each-doctor" key={el}>
+              <div className="each-doctor" key={el.id}>
                 <div className="content-left">
                   <div className="profile-doctor">
                     <ProfileDoctor
                       dataSchedule={{
-                        doctorId: "7c802da9-8665-4158-89a7-e97a73728c1e",
+                        doctorId: el.doctorId,
                       }}
                       isShowDescription={true}
                     />
@@ -54,10 +63,10 @@ class DetailsSpecialty extends Component {
                 </div>
                 <div className="content-right">
                   <div className="doctor-schedule">
-                    <DoctorSchedule arrayDoctorId={el} />
+                    <DoctorSchedule arrayDoctorId={el.doctorId} />
                   </div>
                   <div className="doctor-extra-info">
-                    <DoctorExtraInfo doctorIdFromParent={el} />
+                    <DoctorExtraInfo doctorIdFromParent={el.doctorId} />
                   </div>
                 </div>
               </div>
@@ -75,7 +84,11 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    getListDoctorByQuery: (query) => {
+      return dispatch(actions.getListDoctorByQuery(query));
+    },
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailsSpecialty);

@@ -117,7 +117,6 @@ export const getDoctorUserMoreInfoByIdSuccess =
       const results = await axios.get(
         `http://localhost:8088/doctors/${userId}`
       );
-      console.log("aaaaaa results", results);
       if (!results) {
         dispatch(getUserByIdFailed());
       }
@@ -274,5 +273,45 @@ export const getListSpecialtyFailed = (dispatch, getState) => {
   return {
     type: actionTypes.GET_LIST_SPECIALTY_FAILED,
     data: [],
+  };
+};
+
+export const getListDoctorByQuery = (query) => async (dispatch, getState) => {
+  try {
+    const results = await axios.get(`http://localhost:8088/doctors`, {
+      params: query,
+    });
+    if (!results) {
+      dispatch(getListDoctorByQueryFailed());
+    }
+    return results;
+  } catch (e) {
+    dispatch(getListDoctorByQueryFailed());
+  }
+};
+
+export const getListDoctorByQueryFailed = (dispatch, getState) => {
+  return {
+    // type: actionTypes.EDIT_USER_FAILED,
+  };
+};
+
+export const getUserByIdForListSpecialty =
+  (userId) => async (dispatch, getState) => {
+    try {
+      const results = await axios.get(`http://localhost:8088/users/${userId}`);
+      if (!results) {
+        dispatch(getUserByIdForListSpecialtyFailed());
+      }
+      return results;
+    } catch (e) {
+      dispatch(getUserByIdForListSpecialtyFailed());
+      console.log(e);
+    }
+  };
+
+export const getUserByIdForListSpecialtyFailed = (dispatch, getState) => {
+  return {
+    // type: actionTypes.GET_LIST_CODE_FAILED,
   };
 };

@@ -43,7 +43,6 @@ class Specialty extends Component {
 
   render() {
     const { listSpecialty } = this.props;
-    console.log(listSpecialty);
 
     return (
       <div className="section-share section-specialty">

@@ -4,7 +4,7 @@ import { FormattedMessage } from "react-intl";
 import "./ManageSchedule.scss";
 import Select, { createFilter } from "react-select";
 import * as actions from "../../../store/actions";
-import { ORDERBY, CODES, ROLE_KEYS } from "../../../utils";
+import { CODES } from "../../../utils";
 import DatePicker from "../../../components/Input/DatePicker";
 import moment from "moment";
 import { toast } from "react-toastify";
@@ -141,7 +141,6 @@ class ManageSchedule extends Component {
 
   render() {
     const { optionsDoctor, rangeTime } = this.state;
-    console.log(optionsDoctor);
     return (
       <div className="manage-schedule-container">
         <div className="manage-schedule-title">

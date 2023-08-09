@@ -90,7 +90,9 @@ class BookingModal extends Component {
   saveBookingPatient = async () => {
     try {
       const { name, email, phone, selectedGender, roleId } = this.state;
-      const { dataSchedule, dateChoose, dateChooseEpoch } = this.props;
+      const { dataSchedule, dateChoose, dateChooseEpoch, userDoctorInfo } =
+        this.props;
+    
 
       const result = await this.props.saveBookingPatient({
         name: name,
@@ -99,7 +101,9 @@ class BookingModal extends Component {
         genderId: selectedGender.id,
         roleId: ROLE_ID.PATIENT,
         statusId: STATUS_BOOKING.NEW,
-        doctorId: dataSchedule.doctorId,
+        doctorId: dataSchedule.doctorId
+          ? dataSchedule.doctorId
+          : userDoctorInfo.data.doctorId,
         timeType: "abc1",
         date: dateChooseEpoch + "",
       });

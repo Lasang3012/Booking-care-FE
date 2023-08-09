@@ -50,6 +50,7 @@ class DoctorSchedule extends Component {
         allDays.push(object);
       }
 
+      console.log(this.props);
       this.setState({
         allDays: allDays,
       });
@@ -64,30 +65,53 @@ class DoctorSchedule extends Component {
     const dateChoose = new Date(date);
     const epochToDateTime = new Date(dateChoose.toISOString());
     epochToDateTime.setHours(epochToDateTime.getHours() + 7);
-    // get schedule by doctorId and date choose
-    const results = await this.props.getSchedules({
-      doctorId: this.props.userId,
-      date: epochToDateTime.toISOString(),
-    });
-    const availableSchedules = results.data.data;
-    let availableTimeArray = [];
-    for (let i = 0; i < availableSchedules.length; i++) {
-      const { timeKey, timeType } = availableSchedules[i];
-      const availableSchedule = await this.props.getListCode({
-        key: timeKey,
-        type: timeType,
+    if (this.props.arrayDoctorId) {
+      const doctorId = this.props.arrayDoctorId;
+      // get schedule by doctorId and date choose
+      const results = await this.props.getSchedules({
+        doctorId: doctorId,
+        date: epochToDateTime.toISOString(),
       });
-      availableTimeArray.push(availableSchedule.data[0]);
+      const availableSchedules = results.data.data;
+      let availableTimeArray = [];
+      for (let i = 0; i < availableSchedules.length; i++) {
+        const { timeKey, timeType } = availableSchedules[i];
+        const availableSchedule = await this.props.getListCode({
+          key: timeKey,
+          type: timeType,
+        });
+        availableTimeArray.push(availableSchedule.data[0]);
+      }
+      //
+      this.setState({
+        allAvailableTime: availableTimeArray,
+        dateChoose: dateChoose,
+        dateChooseEpoch: date,
+      });
+    } else {
+      // get schedule by doctorId and date choose
+      const results = await this.props.getSchedules({
+        doctorId: this.props.userId,
+        date: epochToDateTime.toISOString(),
+      });
+      const availableSchedules = results.data.data;
+      let availableTimeArray = [];
+      for (let i = 0; i < availableSchedules.length; i++) {
+        const { timeKey, timeType } = availableSchedules[i];
+        const availableSchedule = await this.props.getListCode({
+          key: timeKey,
+          type: timeType,
+        });
+        availableTimeArray.push(availableSchedule.data[0]);
+      }
+      //
+      this.setState({
+        allAvailableTime: availableTimeArray,
+        dateChoose: dateChoose,
+        dateChooseEpoch: date,
+      });
     }
-    //
-    this.setState({
-      allAvailableTime: availableTimeArray,
-      dateChoose: dateChoose,
-      dateChooseEpoch: date,
-    });
   };
-
-  componentDidUpdate = (prevProps, prevState, snapshot) => {};
 
   handleClickScheduleTime = (el) => {
     const doctorId = this.props.userId;

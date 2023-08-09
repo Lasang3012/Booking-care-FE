@@ -7,7 +7,9 @@
 
   .each-doctor {
     display: flex;
-    margin: 20px;
+    margin: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
 
     .content-left {
       width: 40%;
