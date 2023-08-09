@@ -12,6 +12,7 @@ import "./DetailsSpecialty.scss";
 import DoctorExtraInfo from "../../Patient/Doctor/DoctorExtraInfo";
 import DetailsDoctor from "../../Patient/Doctor/DetailsDoctor";
 import ProfileDoctor from "../../Patient/Doctor/ProfileDoctor";
+import { Link, withRouter } from "react-router-dom";
 
 class DetailsSpecialty extends Component {
   constructor(props) {
@@ -46,13 +47,18 @@ class DetailsSpecialty extends Component {
 
   render() {
     const { listDoctor, specialtyInfo } = this.state;
-    console.log("aaaaaaaaaaaaa", specialtyInfo);
+    console.log("listDoctor rrr", listDoctor);
     return (
       <div className="detail-specialty-container">
         <HomeHeader />
         <div className="description-specialty">
-          <h3>{specialtyInfo.name}</h3>
+          <h3
+            style={{ textAlign: "center", fontSize: "30px", fontWeight: 600 }}
+          >
+            {specialtyInfo.name}
+          </h3>
           <div
+            style={{ textAlign: "center" }}
             dangerouslySetInnerHTML={{
               __html: specialtyInfo?.descriptionHTML,
             }}
@@ -72,6 +78,21 @@ class DetailsSpecialty extends Component {
                       }}
                       isShowDescription={true}
                     />
+                    <div>
+                      <Link
+                        to={`/details-doctor/${el?.doctorId}`}
+                        style={{
+                          textDecoration: "none",
+                          fontSize: "15px",
+                          fontWeight: 600,
+                          paddingLeft: "90px",
+                          paddingTop: "5px",
+                          cursor: "pointer",
+                        }}
+                      >
+                        Xem thêm
+                      </Link>
+                    </div>
                   </div>
                 </div>
                 <div className="content-right">
