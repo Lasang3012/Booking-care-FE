@@ -32,7 +32,8 @@
 
     "doctor": {
       "manage-user": "Quản lý người dùng",
-      "manage-schedule": "Quản lý kế hoạch khám bệnh"
+      "manage-schedule": "Quản lý kế hoạch khám bệnh",
+      "manage-patient": "Quản lý lịch hẹn bệnh nhân"
     }
   },
 
