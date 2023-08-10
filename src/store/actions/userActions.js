@@ -404,3 +404,25 @@ export const getListPatientBookingFailed = (dispatch, getState) => {
     // type: actionTypes.GET_LIST_CODE_FAILED,
   };
 };
+
+export const sendRemedy = (data) => async (dispatch, getState) => {
+  try {
+    const results = await axios.post(
+      `http://localhost:8088/doctors/send-remedy`,
+      data
+    );
+    if (!results) {
+      dispatch(sendRemedyFailed());
+    }
+    return results;
+  } catch (e) {
+    dispatch(sendRemedyFailed());
+    console.log(e);
+  }
+};
+
+export const sendRemedyFailed = (dispatch, getState) => {
+  return {
+    // type: actionTypes.GET_LIST_CODE_FAILED,
+  };
+};

@@ -13,6 +13,7 @@ import { userService } from "../../../services";
 import chroma from "chroma-js";
 import vi from "moment/locale/vi";
 import { LANGUAGES } from "../../../utils";
+import RemedyModal from "./RemedyModal";
 
 class ManageBookingPatient extends Component {
   constructor(props) {
@@ -22,6 +23,8 @@ class ManageBookingPatient extends Component {
       listPatient: [],
       allDays: [],
       doctorInfo: {},
+      dataModal: {},
+      isOpenRemedyModal: false,
     };
   }
 
@@ -103,6 +106,37 @@ class ManageBookingPatient extends Component {
   };
 
   componentDidUpdate = (prevProps, prevState, snapshot) => {};
+  handleCloseRemedyModal = () => {
+    this.setState({ isOpenRemedyModal: false });
+  };
+
+  sendRemedy = async (dataModal) => {
+    await this.props.sendRemedy(dataModal);
+  };
+
+  handleBtnConfirm = (item) => {
+    const {
+      patientId,
+      doctorId,
+      patientEmail,
+      time,
+      day,
+      patientName,
+      patientPhone,
+    } = item;
+    this.setState({
+      isOpenRemedyModal: true,
+      dataModal: {
+        patientId: patientId,
+        doctorId: doctorId,
+        patientEmail: patientEmail,
+        time: time,
+        day: day,
+        patientName: patientName,
+        patientPhone: patientPhone,
+      },
+    });
+  };
 
   render() {
     const dot = (color = "transparent") => ({
@@ -169,7 +203,7 @@ class ManageBookingPatient extends Component {
       singleValue: (styles, { data }) => ({ ...styles, ...dot(data.color) }),
     };
     //
-    const { listPatient } = this.state;
+    const { listPatient, dataModal, isOpenRemedyModal } = this.state;
     return (
       <>
         <div className="manage-patient-container">
@@ -193,6 +227,7 @@ class ManageBookingPatient extends Component {
                     <th>Định danh</th>
                     <th>Tên</th>
                     <th>Số điện thoại</th>
+                    <th>Email</th>
                     <th>Giới tính</th>
                     <th>Ngày đặt</th>
                     <th>Thời gian</th>
@@ -210,15 +245,65 @@ class ManageBookingPatient extends Component {
                         .replace(/^\w/, (c) => c.toUpperCase());
                       return (
                         <tr key={el.patientId}>
-                          <td>{el.patientId}</td>
+                          <td
+                            style={{
+                              width: "350px",
+                            }}
+                          >
+                            {el.patientId}
+                          </td>
                           <td>{el.patientName}</td>
-                          <td>{el.patientPhone}</td>
-                          <td>{el.patientGender}</td>
-                          <td>{vietNamDate}</td>
-                          <td>{el.getTime}</td>
+                          <td
+                            style={{
+                              width: "150px",
+                            }}
+                          >
+                            {el.patientPhone}
+                          </td>
+                          <td
+                            style={{
+                              width: "250px",
+                            }}
+                          >
+                            {el.patientEmail}
+                          </td>
+                          <td
+                            style={{
+                              width: "100px",
+                            }}
+                          >
+                            {el.patientGender}
+                          </td>
+                          <td
+                            style={{
+                              width: "250px",
+                            }}
+                          >
+                            {vietNamDate}
+                          </td>
+                          <td
+                            style={{
+                              width: "150px",
+                            }}
+                          >
+                            {el.getTime}
+                          </td>
                           <td>
-                            <button type="button" className="btn btn-primary">
-                              Primary
+                            <button
+                              style={{
+                                width: "100px",
+                              }}
+                              type="button"
+                              className="btn btn-primary"
+                              onClick={() =>
+                                this.handleBtnConfirm({
+                                  ...el,
+                                  time: el.getTime,
+                                  day: vietNamDate,
+                                })
+                              }
+                            >
+                              Xác nhận
                             </button>
                           </td>
                         </tr>
@@ -229,6 +314,13 @@ class ManageBookingPatient extends Component {
             </div>
           </div>
         </div>
+
+        <RemedyModal
+          isOpenRemedyModal={isOpenRemedyModal}
+          dataModal={dataModal}
+          sendRemedy={this.sendRemedy}
+          handleCloseRemedyModal={this.handleCloseRemedyModal}
+        />
       </>
     );
   }
@@ -245,6 +337,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getListPatientBooking: (query) => {
       return dispatch(actions.getListPatientBooking(query));
+    },
+    sendRemedy: (data) => {
+      return dispatch(actions.sendRemedy(data));
     },
   };
 };
