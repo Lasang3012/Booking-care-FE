@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=${PG_USER}
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+      - POSTGRES_DB=${PG_DATABASE}
+      - PGDATA=/data/postgres
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    hostname: postgres
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -d booking_care -U postgres']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - booking-care-2023
+
+  nodejs:
+    image: sang3012/booking-care-2023
+    restart: always
+    ports:
+      - "8066:8088"
+    networks:
+      -  booking-care-2023
+
+networks:
+  booking-care-2023:
+    name: booking-care-2023
+    external: false
